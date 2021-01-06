@@ -84,5 +84,118 @@ class Contact
      */
     private $updatedat;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
 
 }

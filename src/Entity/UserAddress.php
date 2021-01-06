@@ -80,5 +80,106 @@ class UserAddress
      */
     private $user;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(?string $zip): self
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }

@@ -45,5 +45,46 @@ class UserTranslation
      */
     private $translatable;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getTranslatable(): ?User
+    {
+        return $this->translatable;
+    }
+
+    public function setTranslatable(?User $translatable): self
+    {
+        $this->translatable = $translatable;
+
+        return $this;
+    }
+
 
 }

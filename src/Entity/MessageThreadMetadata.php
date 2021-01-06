@@ -62,5 +62,70 @@ class MessageThreadMetadata
      */
     private $thread;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    public function getLastParticipantMessageDate(): ?\DateTimeInterface
+    {
+        return $this->lastParticipantMessageDate;
+    }
+
+    public function setLastParticipantMessageDate(?\DateTimeInterface $lastParticipantMessageDate): self
+    {
+        $this->lastParticipantMessageDate = $lastParticipantMessageDate;
+
+        return $this;
+    }
+
+    public function getLastMessageDate(): ?\DateTimeInterface
+    {
+        return $this->lastMessageDate;
+    }
+
+    public function setLastMessageDate(?\DateTimeInterface $lastMessageDate): self
+    {
+        $this->lastMessageDate = $lastMessageDate;
+
+        return $this;
+    }
+
+    public function getParticipant(): ?User
+    {
+        return $this->participant;
+    }
+
+    public function setParticipant(?User $participant): self
+    {
+        $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function getThread(): ?MessageThread
+    {
+        return $this->thread;
+    }
+
+    public function setThread(?MessageThread $thread): self
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
 
 }

@@ -66,5 +66,82 @@ class FooterTranslation
      */
     private $translatable;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getUrlHash(): ?string
+    {
+        return $this->urlHash;
+    }
+
+    public function setUrlHash(?string $urlHash): self
+    {
+        $this->urlHash = $urlHash;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link): self
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getTranslatable(): ?Footer
+    {
+        return $this->translatable;
+    }
+
+    public function setTranslatable(?Footer $translatable): self
+    {
+        $this->translatable = $translatable;
+
+        return $this;
+    }
+
 
 }

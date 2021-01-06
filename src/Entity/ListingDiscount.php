@@ -45,5 +45,46 @@ class ListingDiscount
      */
     private $listing;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDiscount(): ?int
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(int $discount): self
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getFromQuantity(): ?int
+    {
+        return $this->fromQuantity;
+    }
+
+    public function setFromQuantity(int $fromQuantity): self
+    {
+        $this->fromQuantity = $fromQuantity;
+
+        return $this;
+    }
+
+    public function getListing(): ?Listing
+    {
+        return $this->listing;
+    }
+
+    public function setListing(?Listing $listing): self
+    {
+        $this->listing = $listing;
+
+        return $this;
+    }
+
 
 }

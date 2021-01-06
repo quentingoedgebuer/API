@@ -55,5 +55,58 @@ class Message
      */
     private $sender;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    public function setBody(string $body): self
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getThread(): ?MessageThread
+    {
+        return $this->thread;
+    }
+
+    public function setThread(?MessageThread $thread): self
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    public function getSender(): ?User
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?User $sender): self
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
 
 }

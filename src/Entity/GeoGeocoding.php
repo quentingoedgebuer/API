@@ -49,5 +49,58 @@ class GeoGeocoding
      */
     private $addressType;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(string $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getViewport(): ?string
+    {
+        return $this->viewport;
+    }
+
+    public function setViewport(string $viewport): self
+    {
+        $this->viewport = $viewport;
+
+        return $this;
+    }
+
+    public function getAddressType(): ?string
+    {
+        return $this->addressType;
+    }
+
+    public function setAddressType(string $addressType): self
+    {
+        $this->addressType = $addressType;
+
+        return $this;
+    }
+
 
 }

@@ -41,5 +41,34 @@ class GeoArea
      */
     private $country;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getGeocoding(): ?GeoGeocoding
+    {
+        return $this->geocoding;
+    }
+
+    public function setGeocoding(?GeoGeocoding $geocoding): self
+    {
+        $this->geocoding = $geocoding;
+
+        return $this;
+    }
+
+    public function getCountry(): ?GeoCountry
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?GeoCountry $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
 
 }

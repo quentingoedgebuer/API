@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -145,6 +147,218 @@ class Listing
     public function __construct()
     {
         $this->mariage = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCertified(): ?bool
+    {
+        return $this->certified;
+    }
+
+    public function setCertified(?bool $certified): self
+    {
+        $this->certified = $certified;
+
+        return $this;
+    }
+
+    public function getMinDuration(): ?int
+    {
+        return $this->minDuration;
+    }
+
+    public function setMinDuration(?int $minDuration): self
+    {
+        $this->minDuration = $minDuration;
+
+        return $this;
+    }
+
+    public function getMaxDuration(): ?int
+    {
+        return $this->maxDuration;
+    }
+
+    public function setMaxDuration(?int $maxDuration): self
+    {
+        $this->maxDuration = $maxDuration;
+
+        return $this;
+    }
+
+    public function getCancellationPolicy(): ?int
+    {
+        return $this->cancellationPolicy;
+    }
+
+    public function setCancellationPolicy(int $cancellationPolicy): self
+    {
+        $this->cancellationPolicy = $cancellationPolicy;
+
+        return $this;
+    }
+
+    public function getAverageRating(): ?int
+    {
+        return $this->averageRating;
+    }
+
+    public function setAverageRating(?int $averageRating): self
+    {
+        $this->averageRating = $averageRating;
+
+        return $this;
+    }
+
+    public function getCommentCount(): ?int
+    {
+        return $this->commentCount;
+    }
+
+    public function setCommentCount(?int $commentCount): self
+    {
+        $this->commentCount = $commentCount;
+
+        return $this;
+    }
+
+    public function getAdminNotation(): ?string
+    {
+        return $this->adminNotation;
+    }
+
+    public function setAdminNotation(?string $adminNotation): self
+    {
+        $this->adminNotation = $adminNotation;
+
+        return $this;
+    }
+
+    public function getAvailabilitiesUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->availabilitiesUpdatedAt;
+    }
+
+    public function setAvailabilitiesUpdatedAt(?\DateTimeInterface $availabilitiesUpdatedAt): self
+    {
+        $this->availabilitiesUpdatedAt = $availabilitiesUpdatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getLocation(): ?ListingLocation
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?ListingLocation $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mariage[]
+     */
+    public function getMariage(): Collection
+    {
+        return $this->mariage;
+    }
+
+    public function addMariage(Mariage $mariage): self
+    {
+        if (!$this->mariage->contains($mariage)) {
+            $this->mariage[] = $mariage;
+            $mariage->addListing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMariage(Mariage $mariage): self
+    {
+        if ($this->mariage->removeElement($mariage)) {
+            $mariage->removeListing($this);
+        }
+
+        return $this;
     }
 
 }

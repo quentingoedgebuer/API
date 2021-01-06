@@ -72,5 +72,82 @@ class MessageThread
      */
     private $listing;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getIsspam(): ?bool
+    {
+        return $this->isspam;
+    }
+
+    public function setIsspam(bool $isspam): self
+    {
+        $this->isspam = $isspam;
+
+        return $this;
+    }
+
+    public function getCreatedby(): ?User
+    {
+        return $this->createdby;
+    }
+
+    public function setCreatedby(?User $createdby): self
+    {
+        $this->createdby = $createdby;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): self
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
+    public function getListing(): ?Listing
+    {
+        return $this->listing;
+    }
+
+    public function setListing(?Listing $listing): self
+    {
+        $this->listing = $listing;
+
+        return $this;
+    }
+
 
 }

@@ -38,5 +38,34 @@ class GeoCountry
      */
     private $geocoding;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getGeocoding(): ?GeoGeocoding
+    {
+        return $this->geocoding;
+    }
+
+    public function setGeocoding(?GeoGeocoding $geocoding): self
+    {
+        $this->geocoding = $geocoding;
+
+        return $this;
+    }
+
 
 }

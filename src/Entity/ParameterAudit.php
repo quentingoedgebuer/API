@@ -58,5 +58,63 @@ class ParameterAudit
      */
     private $revtype;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getRev(): ?int
+    {
+        return $this->rev;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getRevtype(): ?string
+    {
+        return $this->revtype;
+    }
+
+    public function setRevtype(string $revtype): self
+    {
+        $this->revtype = $revtype;
+
+        return $this;
+    }
+
 
 }

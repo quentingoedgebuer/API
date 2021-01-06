@@ -51,5 +51,46 @@ class GeoDepartment
      */
     private $country;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getGeocoding(): ?GeoGeocoding
+    {
+        return $this->geocoding;
+    }
+
+    public function setGeocoding(?GeoGeocoding $geocoding): self
+    {
+        $this->geocoding = $geocoding;
+
+        return $this;
+    }
+
+    public function getArea(): ?GeoArea
+    {
+        return $this->area;
+    }
+
+    public function setArea(?GeoArea $area): self
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    public function getCountry(): ?GeoCountry
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?GeoCountry $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
 
 }

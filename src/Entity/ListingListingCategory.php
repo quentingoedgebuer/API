@@ -41,5 +41,34 @@ class ListingListingCategory
      */
     private $listing;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getListingCategory(): ?ListingCategory
+    {
+        return $this->listingCategory;
+    }
+
+    public function setListingCategory(?ListingCategory $listingCategory): self
+    {
+        $this->listingCategory = $listingCategory;
+
+        return $this;
+    }
+
+    public function getListing(): ?Listing
+    {
+        return $this->listing;
+    }
+
+    public function setListing(?Listing $listing): self
+    {
+        $this->listing = $listing;
+
+        return $this;
+    }
+
 
 }

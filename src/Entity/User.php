@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- *
+ * @ApiResource
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
  * @ORM\Entity
  */
@@ -357,6 +360,575 @@ class User
     public function __construct()
     {
         $this->group = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getUsernameCanonical(): ?string
+    {
+        return $this->usernameCanonical;
+    }
+
+    public function setUsernameCanonical(string $usernameCanonical): self
+    {
+        $this->usernameCanonical = $usernameCanonical;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getEmailCanonical(): ?string
+    {
+        return $this->emailCanonical;
+    }
+
+    public function setEmailCanonical(string $emailCanonical): self
+    {
+        $this->emailCanonical = $emailCanonical;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return $this->salt;
+    }
+
+    public function setSalt(string $salt): self
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getLocked(): ?bool
+    {
+        return $this->locked;
+    }
+
+    public function setLocked(bool $locked): self
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    public function getExpired(): ?bool
+    {
+        return $this->expired;
+    }
+
+    public function setExpired(bool $expired): self
+    {
+        $this->expired = $expired;
+
+        return $this;
+    }
+
+    public function getExpiresAt(): ?\DateTimeInterface
+    {
+        return $this->expiresAt;
+    }
+
+    public function setExpiresAt(?\DateTimeInterface $expiresAt): self
+    {
+        $this->expiresAt = $expiresAt;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): ?\DateTimeInterface
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): self
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+
+        return $this;
+    }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getCredentialsExpired(): ?bool
+    {
+        return $this->credentialsExpired;
+    }
+
+    public function setCredentialsExpired(bool $credentialsExpired): self
+    {
+        $this->credentialsExpired = $credentialsExpired;
+
+        return $this;
+    }
+
+    public function getCredentialsExpireAt(): ?\DateTimeInterface
+    {
+        return $this->credentialsExpireAt;
+    }
+
+    public function setCredentialsExpireAt(?\DateTimeInterface $credentialsExpireAt): self
+    {
+        $this->credentialsExpireAt = $credentialsExpireAt;
+
+        return $this;
+    }
+
+    public function getPersonType(): ?int
+    {
+        return $this->personType;
+    }
+
+    public function setPersonType(int $personType): self
+    {
+        $this->personType = $personType;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): self
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getPhonePrefix(): ?string
+    {
+        return $this->phonePrefix;
+    }
+
+    public function setPhonePrefix(?string $phonePrefix): self
+    {
+        $this->phonePrefix = $phonePrefix;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): self
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getCountryOfResidence(): ?string
+    {
+        return $this->countryOfResidence;
+    }
+
+    public function setCountryOfResidence(?string $countryOfResidence): self
+    {
+        $this->countryOfResidence = $countryOfResidence;
+
+        return $this;
+    }
+
+    public function getProfession(): ?string
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?string $profession): self
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getIban(): ?string
+    {
+        return $this->iban;
+    }
+
+    public function setIban(?string $iban): self
+    {
+        $this->iban = $iban;
+
+        return $this;
+    }
+
+    public function getBic(): ?string
+    {
+        return $this->bic;
+    }
+
+    public function setBic(?string $bic): self
+    {
+        $this->bic = $bic;
+
+        return $this;
+    }
+
+    public function getBankOwnerName(): ?string
+    {
+        return $this->bankOwnerName;
+    }
+
+    public function setBankOwnerName(?string $bankOwnerName): self
+    {
+        $this->bankOwnerName = $bankOwnerName;
+
+        return $this;
+    }
+
+    public function getBankOwnerAddress(): ?string
+    {
+        return $this->bankOwnerAddress;
+    }
+
+    public function setBankOwnerAddress(?string $bankOwnerAddress): self
+    {
+        $this->bankOwnerAddress = $bankOwnerAddress;
+
+        return $this;
+    }
+
+    public function getAnnualIncome(): ?string
+    {
+        return $this->annualIncome;
+    }
+
+    public function setAnnualIncome(?string $annualIncome): self
+    {
+        $this->annualIncome = $annualIncome;
+
+        return $this;
+    }
+
+    public function getPhoneVerified(): ?bool
+    {
+        return $this->phoneVerified;
+    }
+
+    public function setPhoneVerified(?bool $phoneVerified): self
+    {
+        $this->phoneVerified = $phoneVerified;
+
+        return $this;
+    }
+
+    public function getEmailVerified(): ?bool
+    {
+        return $this->emailVerified;
+    }
+
+    public function setEmailVerified(?bool $emailVerified): self
+    {
+        $this->emailVerified = $emailVerified;
+
+        return $this;
+    }
+
+    public function getIdCardVerified(): ?bool
+    {
+        return $this->idCardVerified;
+    }
+
+    public function setIdCardVerified(?bool $idCardVerified): self
+    {
+        $this->idCardVerified = $idCardVerified;
+
+        return $this;
+    }
+
+    public function getNbBookingsOfferer(): ?int
+    {
+        return $this->nbBookingsOfferer;
+    }
+
+    public function setNbBookingsOfferer(?int $nbBookingsOfferer): self
+    {
+        $this->nbBookingsOfferer = $nbBookingsOfferer;
+
+        return $this;
+    }
+
+    public function getNbBookingsAsker(): ?int
+    {
+        return $this->nbBookingsAsker;
+    }
+
+    public function setNbBookingsAsker(?int $nbBookingsAsker): self
+    {
+        $this->nbBookingsAsker = $nbBookingsAsker;
+
+        return $this;
+    }
+
+    public function getFeeAsAsker(): ?int
+    {
+        return $this->feeAsAsker;
+    }
+
+    public function setFeeAsAsker(?int $feeAsAsker): self
+    {
+        $this->feeAsAsker = $feeAsAsker;
+
+        return $this;
+    }
+
+    public function getFeeAsOfferer(): ?int
+    {
+        return $this->feeAsOfferer;
+    }
+
+    public function setFeeAsOfferer(?int $feeAsOfferer): self
+    {
+        $this->feeAsOfferer = $feeAsOfferer;
+
+        return $this;
+    }
+
+    public function getAverageRatingAsAsker(): ?int
+    {
+        return $this->averageRatingAsAsker;
+    }
+
+    public function setAverageRatingAsAsker(?int $averageRatingAsAsker): self
+    {
+        $this->averageRatingAsAsker = $averageRatingAsAsker;
+
+        return $this;
+    }
+
+    public function getAverageRatingAsOfferer(): ?int
+    {
+        return $this->averageRatingAsOfferer;
+    }
+
+    public function setAverageRatingAsOfferer(?int $averageRatingAsOfferer): self
+    {
+        $this->averageRatingAsOfferer = $averageRatingAsOfferer;
+
+        return $this;
+    }
+
+    public function getMotherTongue(): ?string
+    {
+        return $this->motherTongue;
+    }
+
+    public function setMotherTongue(?string $motherTongue): self
+    {
+        $this->motherTongue = $motherTongue;
+
+        return $this;
+    }
+
+    public function getAnswerDelay(): ?int
+    {
+        return $this->answerDelay;
+    }
+
+    public function setAnswerDelay(?int $answerDelay): self
+    {
+        $this->answerDelay = $answerDelay;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroup(): Collection
+    {
+        return $this->group;
+    }
+
+    public function addGroup(Group $group): self
+    {
+        if (!$this->group->contains($group)) {
+            $this->group[] = $group;
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): self
+    {
+        $this->group->removeElement($group);
+
+        return $this;
     }
 
 }

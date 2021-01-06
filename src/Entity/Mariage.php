@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -93,6 +95,119 @@ class Mariage
     public function __construct()
     {
         $this->listing = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getTexte(): ?string
+    {
+        return $this->texte;
+    }
+
+    public function setTexte(?string $texte): self
+    {
+        $this->texte = $texte;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getTraduction(): ?string
+    {
+        return $this->traduction;
+    }
+
+    public function setTraduction(?string $traduction): self
+    {
+        $this->traduction = $traduction;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getImageaccueil(): ?string
+    {
+        return $this->imageaccueil;
+    }
+
+    public function setImageaccueil(?string $imageaccueil): self
+    {
+        $this->imageaccueil = $imageaccueil;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListing(): Collection
+    {
+        return $this->listing;
+    }
+
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->listing->contains($listing)) {
+            $this->listing[] = $listing;
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        $this->listing->removeElement($listing);
+
+        return $this;
     }
 
 }

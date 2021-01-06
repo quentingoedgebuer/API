@@ -35,5 +35,34 @@ class LexikCurrency
      */
     private $rate;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getRate(): ?string
+    {
+        return $this->rate;
+    }
+
+    public function setRate(string $rate): self
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
 
 }

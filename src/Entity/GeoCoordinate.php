@@ -117,5 +117,154 @@ class GeoCoordinate
      */
     private $country;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(string $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(?string $zip): self
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getRoute(): ?string
+    {
+        return $this->route;
+    }
+
+    public function setRoute(?string $route): self
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    public function getStreetNumber(): ?string
+    {
+        return $this->streetNumber;
+    }
+
+    public function setStreetNumber(?string $streetNumber): self
+    {
+        $this->streetNumber = $streetNumber;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getCity(): ?GeoCity
+    {
+        return $this->city;
+    }
+
+    public function setCity(?GeoCity $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?GeoDepartment
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?GeoDepartment $department): self
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    public function getArea(): ?GeoArea
+    {
+        return $this->area;
+    }
+
+    public function setArea(?GeoArea $area): self
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    public function getCountry(): ?GeoCountry
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?GeoCountry $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
 
 }

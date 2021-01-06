@@ -79,5 +79,94 @@ class Review
      */
     private $reviewBy;
 
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    public function getUpdatedat(): ?\DateTimeInterface
+    {
+        return $this->updatedat;
+    }
+
+    public function setUpdatedat(?\DateTimeInterface $updatedat): self
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): self
+    {
+        $this->booking = $booking;
+
+        return $this;
+    }
+
+    public function getReviewTo(): ?User
+    {
+        return $this->reviewTo;
+    }
+
+    public function setReviewTo(?User $reviewTo): self
+    {
+        $this->reviewTo = $reviewTo;
+
+        return $this;
+    }
+
+    public function getReviewBy(): ?User
+    {
+        return $this->reviewBy;
+    }
+
+    public function setReviewBy(?User $reviewBy): self
+    {
+        $this->reviewBy = $reviewBy;
+
+        return $this;
+    }
+
 
 }

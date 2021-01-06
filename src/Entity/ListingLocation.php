@@ -76,5 +76,94 @@ class ListingLocation
      */
     private $listing;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(?string $zip): self
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getRoute(): ?string
+    {
+        return $this->route;
+    }
+
+    public function setRoute(?string $route): self
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    public function getStreetNumber(): ?string
+    {
+        return $this->streetNumber;
+    }
+
+    public function setStreetNumber(?string $streetNumber): self
+    {
+        $this->streetNumber = $streetNumber;
+
+        return $this;
+    }
+
+    public function getCoordinate(): ?GeoCoordinate
+    {
+        return $this->coordinate;
+    }
+
+    public function setCoordinate(?GeoCoordinate $coordinate): self
+    {
+        $this->coordinate = $coordinate;
+
+        return $this;
+    }
+
+    public function getListing(): ?Listing
+    {
+        return $this->listing;
+    }
+
+    public function setListing(?Listing $listing): self
+    {
+        $this->listing = $listing;
+
+        return $this;
+    }
+
 
 }

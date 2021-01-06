@@ -38,5 +38,34 @@ class ListingCharacteristicValue
      */
     private $listingCharacteristicType;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getListingCharacteristicType(): ?ListingCharacteristicType
+    {
+        return $this->listingCharacteristicType;
+    }
+
+    public function setListingCharacteristicType(?ListingCharacteristicType $listingCharacteristicType): self
+    {
+        $this->listingCharacteristicType = $listingCharacteristicType;
+
+        return $this;
+    }
+
 
 }

@@ -61,5 +61,58 @@ class GeoCity
      */
     private $country;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getGeocoding(): ?GeoGeocoding
+    {
+        return $this->geocoding;
+    }
+
+    public function setGeocoding(?GeoGeocoding $geocoding): self
+    {
+        $this->geocoding = $geocoding;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?GeoDepartment
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?GeoDepartment $department): self
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    public function getArea(): ?GeoArea
+    {
+        return $this->area;
+    }
+
+    public function setArea(?GeoArea $area): self
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    public function getCountry(): ?GeoCountry
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?GeoCountry $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
 
 }

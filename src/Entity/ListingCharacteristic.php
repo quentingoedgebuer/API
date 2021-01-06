@@ -48,5 +48,46 @@ class ListingCharacteristic
      */
     private $listingCharacteristicGroup;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getListingCharacteristicType(): ?ListingCharacteristicType
+    {
+        return $this->listingCharacteristicType;
+    }
+
+    public function setListingCharacteristicType(?ListingCharacteristicType $listingCharacteristicType): self
+    {
+        $this->listingCharacteristicType = $listingCharacteristicType;
+
+        return $this;
+    }
+
+    public function getListingCharacteristicGroup(): ?ListingCharacteristicGroup
+    {
+        return $this->listingCharacteristicGroup;
+    }
+
+    public function setListingCharacteristicGroup(?ListingCharacteristicGroup $listingCharacteristicGroup): self
+    {
+        $this->listingCharacteristicGroup = $listingCharacteristicGroup;
+
+        return $this;
+    }
+
 
 }

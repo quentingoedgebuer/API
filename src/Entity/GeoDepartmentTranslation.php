@@ -52,5 +52,58 @@ class GeoDepartmentTranslation
      */
     private $translatable;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getTranslatable(): ?GeoDepartment
+    {
+        return $this->translatable;
+    }
+
+    public function setTranslatable(?GeoDepartment $translatable): self
+    {
+        $this->translatable = $translatable;
+
+        return $this;
+    }
+
 
 }
