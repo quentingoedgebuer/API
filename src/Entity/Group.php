@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Group
  *
- * @ORM\Table(name="group", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_6DC044C55E237E06", columns={"name"})})
+ * @ORM\Table(name="groupe", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_6DC044C55E237E06", columns={"name"})})
  * @ORM\Entity
  */
 class Group

@@ -13,8 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mariage
  *
  * @ApiResource
- * @ApiFilter(SearchFilter::class, properties={"url": "exact"})
-
+ * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="mariage")
  * @ORM\Entity
  */
