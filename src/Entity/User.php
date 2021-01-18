@@ -13,9 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- * @ApiResource
+ * @ApiResource(normalizationContext={"groups"={"utilisateur"}})
  * @ApiFilter(SearchFilter::class, properties={*})
- * @ApiResource(normalizationContext={"groups"={"user"}})
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
  * @ORM\Entity
  * 
@@ -34,6 +33,7 @@ class User
     /**
      * @var string
      *
+     * @Groups({"utilisateur"})
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      * 
      */
@@ -42,6 +42,7 @@ class User
     /**
      * @var string
      *
+     * @Groups({"utilisateur"})
      * @ORM\Column(name="username_canonical", type="string", length=255, nullable=false)
      * 
      */
@@ -57,6 +58,7 @@ class User
     /**
      * @var string
      *
+     * @Groups({"utilisateur"})
      * @ORM\Column(name="email_canonical", type="string", length=255, nullable=false)
      */
     private $emailCanonical;
@@ -365,12 +367,13 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
-     * @Groups({"user"})
+     * @Groups({"utilisateur"})
      * @ApiSubresource
      */
     private $addresses;
 
     /**
+     * @Groups({"utilisateur"})
      * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
      */
     private $images;

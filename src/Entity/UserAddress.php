@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  * UserAddress
  *
  * @ApiResource
- * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="user_address", indexes={@ORM\Index(name="IDX_5543718BA76ED395", columns={"user_id"}), @ORM\Index(name="user_address_type_idx", columns={"type"})})
  * @ORM\Entity
  */
@@ -31,23 +30,23 @@ class UserAddress
     /**
      * @var int
      *
-     * @ORM\Column(name="type", type="smallint", nullable=false, options={"default"="1"})
+     * @Groups("utilisateur")
      */
     private $type = '1';
 
     /**
      * @var string|null
      *
-     * @Groups("user")
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     *
+     * @Groups("utilisateur")
      */
     private $address;
 
     /**
      * @var string|null
      *
-     * @Groups("user")
-     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     *
+     * @Groups("utilisateur")
      * 
      */
     private $city;
@@ -55,7 +54,8 @@ class UserAddress
     /**
      * @var string|null
      *
-     * @Groups("user")
+     * 
+     * @Groups("utilisateur")
      * @ORM\Column(name="zip", type="string", length=50, nullable=true)
      * 
      */
@@ -81,6 +81,7 @@ class UserAddress
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedat;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
