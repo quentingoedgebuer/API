@@ -7,14 +7,18 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  * @ApiResource
  * @ApiFilter(SearchFilter::class, properties={*})
+ * @ApiResource(normalizationContext={"groups"={"user"}})
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
  * @ORM\Entity
+ * 
  */
 class User
 {
@@ -31,6 +35,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * 
      */
     private $username;
 
@@ -38,6 +43,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="username_canonical", type="string", length=255, nullable=false)
+     * 
      */
     private $usernameCanonical;
 
@@ -358,11 +364,27 @@ class User
     private $group;
 
     /**
+     * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
+     * @Groups({"user"})
+     * @ApiSubresource
+     */
+    private $addresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
+     */
+    private $images;
+
+    
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->group = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addresses = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -930,6 +952,66 @@ class User
     public function removeGroup(Group $group): self
     {
         $this->group->removeElement($group);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAddress[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(UserAddress $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(UserAddress $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(UserImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(UserImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
 
         return $this;
     }

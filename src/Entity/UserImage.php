@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserImage
  *
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="user_image", indexes={@ORM\Index(name="IDX_27FFFF07A76ED395", columns={"user_id"}), @ORM\Index(name="position_u_idx", columns={"position"})})
  * @ORM\Entity
  */
@@ -36,14 +40,10 @@ class UserImage
     private $position;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="images")
      */
     private $user;
+
 
     public function getId(): ?int
     {

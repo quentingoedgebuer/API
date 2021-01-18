@@ -43,14 +43,10 @@ class ListingCategoryTranslation
     private $locale;
 
     /**
-     * @var \ListingCategory
-     *
-     * @ORM\ManyToOne(targetEntity="ListingCategory")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="translatable_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=ListingCategory::class, inversedBy="listingCategoryTranslations")
      */
     private $translatable;
+
 
     public function getId(): ?int
     {

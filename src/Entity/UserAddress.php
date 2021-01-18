@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserAddress
  *
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="user_address", indexes={@ORM\Index(name="IDX_5543718BA76ED395", columns={"user_id"}), @ORM\Index(name="user_address_type_idx", columns={"type"})})
  * @ORM\Entity
  */
@@ -31,6 +38,7 @@ class UserAddress
     /**
      * @var string|null
      *
+     * @Groups("user")
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
@@ -38,14 +46,18 @@ class UserAddress
     /**
      * @var string|null
      *
+     * @Groups("user")
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     * 
      */
     private $city;
 
     /**
      * @var string|null
      *
+     * @Groups("user")
      * @ORM\Column(name="zip", type="string", length=50, nullable=true)
+     * 
      */
     private $zip;
 
@@ -71,14 +83,10 @@ class UserAddress
     private $updatedat;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
      */
     private $user;
+    
 
     public function getId(): ?int
     {
@@ -180,6 +188,5 @@ class UserAddress
 
         return $this;
     }
-
 
 }

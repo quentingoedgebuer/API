@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ListingCategory
- *
+ * 
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing_category", indexes={@ORM\Index(name="IDX_E0307BBB727ACA70", columns={"parent_id"})})
  * @ORM\Entity
  */
@@ -114,6 +121,16 @@ class ListingCategory
      * })
      */
     private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="translatable")
+     */
+    private $listingCategoryTranslations;
+
+    public function __construct()
+    {
+        $this->listingCategoryTranslations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -272,6 +289,36 @@ class ListingCategory
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListingCategoryTranslation[]
+     */
+    public function getListingCategoryTranslations(): Collection
+    {
+        return $this->listingCategoryTranslations;
+    }
+
+    public function addListingCategoryTranslation(ListingCategoryTranslation $listingCategoryTranslation): self
+    {
+        if (!$this->listingCategoryTranslations->contains($listingCategoryTranslation)) {
+            $this->listingCategoryTranslations[] = $listingCategoryTranslation;
+            $listingCategoryTranslation->setTranslatable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListingCategoryTranslation(ListingCategoryTranslation $listingCategoryTranslation): self
+    {
+        if ($this->listingCategoryTranslations->removeElement($listingCategoryTranslation)) {
+            // set the owning side to null (unless already changed)
+            if ($listingCategoryTranslation->getTranslatable() === $this) {
+                $listingCategoryTranslation->setTranslatable(null);
+            }
+        }
 
         return $this;
     }
