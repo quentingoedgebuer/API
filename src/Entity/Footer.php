@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * Footer
  *
  * @ORM\Table(name="footer", indexes={@ORM\Index(name="footer_published_idx", columns={"published"})})
  * @ORM\Entity
+ * @ApiResource()
  */
 class Footer
 {
