@@ -6,13 +6,16 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+
+
 
 /**
  * Listing
  *
- * @ApiResource
+ * @ApiResource(normalizationContext={"groups"={"lesListing"}})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CB0048D464D218E", columns={"location_id"})}, indexes={@ORM\Index(name="status_l_idx", columns={"status"}), @ORM\Index(name="min_duration_idx", columns={"min_duration"}), @ORM\Index(name="admin_notation_idx", columns={"admin_notation"}), @ORM\Index(name="IDX_CB0048D4A76ED395", columns={"user_id"}), @ORM\Index(name="price_idx", columns={"price"}), @ORM\Index(name="max_duration_idx", columns={"max_duration"}), @ORM\Index(name="created_at_l_idx", columns={"createdAt"}), @ORM\Index(name="type_idx", columns={"type"}), @ORM\Index(name="average_rating_idx", columns={"average_rating"})})
  * @ORM\Entity
@@ -24,6 +27,9 @@ class Listing
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
+     * @Groups("unMariage")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -31,6 +37,8 @@ class Listing
     /**
      * @var int
      *
+     * @Groups("listing")
+     * @Groups("mariage")
      * @ORM\Column(name="status", type="smallint", nullable=false)
      */
     private $status;
@@ -38,6 +46,9 @@ class Listing
     /**
      * @var int|null
      *
+     * @Groups("mariage")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
      * @ORM\Column(name="type", type="smallint", nullable=true)
      */
     private $type;
@@ -45,6 +56,9 @@ class Listing
     /**
      * @var string|null
      *
+     * @Groups("mariage")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
      * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=true)
      */
     private $price;
@@ -52,6 +66,8 @@ class Listing
     /**
      * @var bool|null
      *
+     * @Groups("mariage")
+     * @Groups("listing")
      * @ORM\Column(name="certified", type="boolean", nullable=true)
      */
     private $certified;
@@ -59,13 +75,15 @@ class Listing
     /**
      * @var int|null
      *
-     * @ORM\Column(name="min_duration", type="smallint", nullable=true)
+     * @Groups("listing")
+     * @ORM\Column(name="min_duration", type="smallint", nullable=true) 
      */
     private $minDuration;
 
     /**
      * @var int|null
      *
+     * @Groups("listing")
      * @ORM\Column(name="max_duration", type="smallint", nullable=true)
      */
     private $maxDuration;
@@ -73,6 +91,7 @@ class Listing
     /**
      * @var int
      *
+     * @Groups("listing")
      * @ORM\Column(name="cancellation_policy", type="smallint", nullable=false)
      */
     private $cancellationPolicy;
@@ -81,6 +100,7 @@ class Listing
      * @var int|null
      *
      * @ORM\Column(name="average_rating", type="smallint", nullable=true)
+     * @Groups("listing")
      */
     private $averageRating;
 
@@ -88,6 +108,7 @@ class Listing
      * @var int|null
      *
      * @ORM\Column(name="comment_count", type="integer", nullable=true)
+     * @Groups("listing")
      */
     private $commentCount;
 
@@ -95,6 +116,7 @@ class Listing
      * @var string|null
      *
      * @ORM\Column(name="admin_notation", type="decimal", precision=3, scale=1, nullable=true)
+     * @Groups("listing")
      */
     private $adminNotation;
 
@@ -102,6 +124,7 @@ class Listing
      * @var \DateTime|null
      *
      * @ORM\Column(name="availabilities_updated_at", type="datetime", nullable=true)
+     * @Groups("listing")
      */
     private $availabilitiesUpdatedAt;
 
@@ -109,12 +132,16 @@ class Listing
      * @var \DateTime|null
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     * @Groups("listing")
      */
     private $createdat;
 
     /**
      * @var \DateTime|null
      *
+     * @Groups("mariage")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedat;
@@ -122,6 +149,9 @@ class Listing
     /**
      * @var \ListingLocation
      *
+     * @Groups({"lesListing"})
+     * @Groups("listing")
+     * @Groups("mariage")
      * @ORM\ManyToOne(targetEntity="ListingLocation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="location_id", referencedColumnName="id")
@@ -133,6 +163,9 @@ class Listing
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
+     * @Groups("mariage")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -140,18 +173,24 @@ class Listing
     private $user;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Mariage", mappedBy="listing")
+     * @Groups({"lesListing"})
+     * @Groups("listing")
+     * @Groups("mariage")
+     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="Listing")
      */
-    private $mariage;
-
+    private $ListingImage;
+    
     /**
-     * Constructor
+     * @Groups({"lesListing"})
+     * @Groups("listing")
+     * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
+    private $mariages;
+
     public function __construct()
     {
-        $this->mariage = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ListingImage = new ArrayCollection();
+        $this->mariages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,18 +379,47 @@ class Listing
     }
 
     /**
+     * @return Collection|ListingImage[]
+     */
+    public function getListingImage(): Collection
+    {
+        return $this->ListingImage;
+    }
+
+    public function addListingImage(ListingImage $listingImage): self
+    {
+        if (!$this->ListingImage->contains($listingImage)) {
+            $this->ListingImage[] = $listingImage;
+            $listingImage->setListing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListingImage(ListingImage $listingImage): self
+    {
+        if ($this->ListingImage->removeElement($listingImage)) {
+            // set the owning side to null (unless already changed)
+            if ($listingImage->getListing() === $this) {
+                $listingImage->setListing(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Mariage[]
      */
-    public function getMariage(): Collection
+    public function getMariages(): Collection
     {
-        return $this->mariage;
+        return $this->mariages;
     }
 
     public function addMariage(Mariage $mariage): self
     {
-        if (!$this->mariage->contains($mariage)) {
-            $this->mariage[] = $mariage;
-            $mariage->addListing($this);
+        if (!$this->mariages->contains($mariage)) {
+            $this->mariages[] = $mariage;
         }
 
         return $this;
@@ -359,9 +427,7 @@ class Listing
 
     public function removeMariage(Mariage $mariage): self
     {
-        if ($this->mariage->removeElement($mariage)) {
-            $mariage->removeListing($this);
-        }
+        $this->mariages->removeElement($mariage);
 
         return $this;
     }

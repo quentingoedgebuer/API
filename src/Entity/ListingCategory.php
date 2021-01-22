@@ -7,12 +7,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ListingCategory
  * 
- * @ApiResource
+ * @ApiResource(normalizationContext={"groups"={"listingCategory"}})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing_category", indexes={@ORM\Index(name="IDX_E0307BBB727ACA70", columns={"parent_id"})})
  * @ORM\Entity
@@ -25,62 +26,80 @@ class ListingCategory
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $id;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $url;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="texte", type="text", length=0, nullable=true)
+     * @ORM\Column(name="texte", type="text", length=0, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $texte;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="texteaccueil", type="text", length=0, nullable=true)
+     * @ORM\Column(name="texteaccueil", type="text", length=0, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $texteaccueil;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $image;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=true)
+     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $imageaccueil;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $title;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="description", type="text", length=255, nullable=true)
+     * @ORM\Column(name="description", type="text", length=255, nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $description;
 
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="accueil", type="boolean", nullable=true)
+     * @ORM\Column(name="accueil", type="boolean", nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $accueil;
 
@@ -88,6 +107,8 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="lft", type="integer", nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $lft;
 
@@ -95,6 +116,8 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="lvl", type="integer", nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $lvl;
 
@@ -102,6 +125,8 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="rgt", type="integer", nullable=false)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $rgt;
 
@@ -109,6 +134,8 @@ class ListingCategory
      * @var int|null
      *
      * @ORM\Column(name="root", type="integer", nullable=true)
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $root;
 
@@ -116,14 +143,18 @@ class ListingCategory
      * @var \ListingCategory
      *
      * @ORM\ManyToOne(targetEntity="ListingCategory")
+     * @Groups("listing")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * })
+     * @Groups({"listingCategory"})
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="translatable")
+     * @Groups({"listingCategory"})
+     * @Groups("listing")
      */
     private $listingCategoryTranslations;
 

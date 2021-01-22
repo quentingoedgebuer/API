@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- * @ApiResource(normalizationContext={"groups"={"utilisateur"}})
+ * @ApiResource
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
  * @ORM\Entity
@@ -26,6 +26,7 @@ class User
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
+     * @Groups("lesListing")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -33,7 +34,8 @@ class User
     /**
      * @var string
      *
-     * @Groups({"utilisateur"})
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      * 
      */
@@ -42,7 +44,8 @@ class User
     /**
      * @var string
      *
-     * @Groups({"utilisateur"})
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="username_canonical", type="string", length=255, nullable=false)
      * 
      */
@@ -51,6 +54,8 @@ class User
     /**
      * @var string
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
@@ -58,13 +63,15 @@ class User
     /**
      * @var string
      *
-     * @Groups({"utilisateur"})
      * @ORM\Column(name="email_canonical", type="string", length=255, nullable=false)
+     *
      */
     private $emailCanonical;
 
     /**
      * @var bool
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
@@ -74,11 +81,14 @@ class User
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     *
      */
     private $salt;
 
     /**
      * @var string
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
@@ -87,12 +97,16 @@ class User
     /**
      * @var \DateTime|null
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
     private $lastLogin;
 
     /**
      * @var bool
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="locked", type="boolean", nullable=false)
      */
@@ -101,12 +115,14 @@ class User
     /**
      * @var bool
      *
+     *
      * @ORM\Column(name="expired", type="boolean", nullable=false)
      */
     private $expired;
 
     /**
      * @var \DateTime|null
+     *
      *
      * @ORM\Column(name="expires_at", type="datetime", nullable=true)
      */
@@ -115,12 +131,16 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
      */
     private $confirmationToken;
 
     /**
      * @var \DateTime|null
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
      */
@@ -129,12 +149,15 @@ class User
     /**
      * @var array
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="roles", type="array", length=0, nullable=false)
      */
     private $roles;
 
     /**
      * @var bool
+     *
      *
      * @ORM\Column(name="credentials_expired", type="boolean", nullable=false)
      */
@@ -143,12 +166,15 @@ class User
     /**
      * @var \DateTime|null
      *
+     *
      * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
      */
     private $credentialsExpireAt;
 
     /**
      * @var int
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="person_type", type="smallint", nullable=false)
      */
@@ -157,12 +183,17 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     *
      * @ORM\Column(name="company_name", type="string", length=100, nullable=true)
      */
     private $companyName;
 
     /**
      * @var string
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
      */
@@ -171,12 +202,16 @@ class User
     /**
      * @var string
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
      */
     private $firstName;
 
     /**
      * @var string|null
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="phone_prefix", type="string", length=6, nullable=true)
      */
@@ -185,12 +220,16 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("lesListing")
+     *
      * @ORM\Column(name="phone", type="string", length=16, nullable=true)
      */
     private $phone;
 
     /**
      * @var \DateTime
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="birthday", type="date", nullable=false)
      */
@@ -199,12 +238,17 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     *
      * @ORM\Column(name="nationality", type="string", length=3, nullable=true)
      */
     private $nationality;
 
     /**
      * @var string|null
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="country_of_residence", type="string", length=3, nullable=true)
      */
@@ -213,12 +257,16 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     *
      * @ORM\Column(name="profession", type="string", length=50, nullable=true)
      */
     private $profession;
 
     /**
      * @var string|null
+     *
      *
      * @ORM\Column(name="iban", type="string", length=45, nullable=true)
      */
@@ -227,6 +275,7 @@ class User
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="bic", type="string", length=25, nullable=true)
      */
     private $bic;
@@ -234,12 +283,13 @@ class User
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="bank_owner_name", type="string", length=100, nullable=true)
      */
     private $bankOwnerName;
 
     /**
-     * @var string|null
+     * @var string|nul
      *
      * @ORM\Column(name="bank_owner_address", type="string", length=255, nullable=true)
      */
@@ -248,12 +298,14 @@ class User
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="annual_income", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $annualIncome;
 
     /**
      * @var bool|null
+     *
      *
      * @ORM\Column(name="phone_verified", type="boolean", nullable=true)
      */
@@ -262,12 +314,14 @@ class User
     /**
      * @var bool|null
      *
+     *
      * @ORM\Column(name="email_verified", type="boolean", nullable=true)
      */
     private $emailVerified;
 
     /**
      * @var bool|null
+     *
      *
      * @ORM\Column(name="id_card_verified", type="boolean", nullable=true)
      */
@@ -276,12 +330,14 @@ class User
     /**
      * @var int|null
      *
+     *
      * @ORM\Column(name="nb_bookings_offerer", type="smallint", nullable=true)
      */
     private $nbBookingsOfferer;
 
     /**
      * @var int|null
+     *
      *
      * @ORM\Column(name="nb_bookings_asker", type="smallint", nullable=true)
      */
@@ -290,12 +346,14 @@ class User
     /**
      * @var int|null
      *
+     *
      * @ORM\Column(name="fee_as_asker", type="smallint", nullable=true)
      */
     private $feeAsAsker;
 
     /**
      * @var int|null
+     *
      *
      * @ORM\Column(name="fee_as_offerer", type="smallint", nullable=true)
      */
@@ -304,12 +362,14 @@ class User
     /**
      * @var int|null
      *
+     *
      * @ORM\Column(name="average_rating_as_asker", type="smallint", nullable=true)
      */
     private $averageRatingAsAsker;
 
     /**
      * @var int|null
+     *
      *
      * @ORM\Column(name="average_rating_as_offerer", type="smallint", nullable=true)
      */
@@ -318,12 +378,14 @@ class User
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="mother_tongue", type="string", length=5, nullable=true)
      */
     private $motherTongue;
 
     /**
      * @var int|null
+     *
      *
      * @ORM\Column(name="answer_delay", type="integer", nullable=true)
      */
@@ -332,6 +394,7 @@ class User
     /**
      * @var string|null
      *
+     *
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
     private $slug;
@@ -339,12 +402,15 @@ class User
     /**
      * @var \DateTime|null
      *
+     *
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdat;
 
     /**
      * @var \DateTime|null
+     *
+     * @Groups("lesListing")
      *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
@@ -354,6 +420,7 @@ class User
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="user")
+     *
      * @ORM\JoinTable(name="user_group",
      *   joinColumns={
      *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -367,18 +434,26 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
-     * @Groups({"utilisateur"})
-     * @ApiSubresource
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     *
      */
     private $addresses;
 
     /**
-     * @Groups({"utilisateur"})
+     * @Groups("lesListing")
+     *
      * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
+     * @Groups("mariage")
      */
     private $images;
 
-    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity=Listing::class, mappedBy="user")
+     */
+    private $Listing;
+
 
     /**
      * Constructor
@@ -388,6 +463,7 @@ class User
         $this->group = new \Doctrine\Common\Collections\ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->Listing = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1013,6 +1089,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($image->getUser() === $this) {
                 $image->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListing(): Collection
+    {
+        return $this->Listing;
+    }
+
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->Listing->contains($listing)) {
+            $this->Listing[] = $listing;
+            $listing->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        if ($this->Listing->removeElement($listing)) {
+            // set the owning side to null (unless already changed)
+            if ($listing->getUser() === $this) {
+                $listing->setUser(null);
             }
         }
 

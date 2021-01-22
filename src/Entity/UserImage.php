@@ -4,6 +4,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +20,8 @@ class UserImage
     /**
      * @var int
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -28,6 +31,8 @@ class UserImage
     /**
      * @var string
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -35,6 +40,8 @@ class UserImage
     /**
      * @var int
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
      * @ORM\Column(name="position", type="smallint", nullable=false)
      */
     private $position;

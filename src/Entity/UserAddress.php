@@ -21,6 +21,8 @@ class UserAddress
     /**
      * @var int
      *
+     * @Groups("lesListing")
+     * @Groups("mariage")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -30,23 +32,28 @@ class UserAddress
     /**
      * @var int
      *
-     * @Groups("utilisateur")
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     * @ORM\Column(name="type", type="smallint", nullable=false, options={"default"="1"})
      */
     private $type = '1';
 
     /**
      * @var string|null
      *
-     *
-     * @Groups("utilisateur")
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * 
      */
     private $address;
 
     /**
      * @var string|null
      *
-     *
-     * @Groups("utilisateur")
+     * @Groups("lesListing")
+     * @Groups("mariage")
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * 
      */
     private $city;
@@ -55,7 +62,8 @@ class UserAddress
      * @var string|null
      *
      * 
-     * @Groups("utilisateur")
+     * @Groups("lesListing")
+     * @Groups("mariage")
      * @ORM\Column(name="zip", type="string", length=50, nullable=true)
      * 
      */

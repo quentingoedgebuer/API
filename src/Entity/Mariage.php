@@ -7,12 +7,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Mariage
  *
- * @ApiResource
+ * @ApiResource(normalizationContext={"groups"={"mariage"}})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="mariage")
  * @ORM\Entity
@@ -25,6 +26,8 @@ class Mariage
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $id;
 
@@ -32,6 +35,8 @@ class Mariage
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=40, nullable=false)
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $nom;
 
@@ -39,13 +44,17 @@ class Mariage
      * @var string|null
      *
      * @ORM\Column(name="texte", type="text", length=0, nullable=true)
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $texte;
 
     /**
      * @var string|null
      *
+     * @Groups({"mariage"})
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Groups("lesListing")
      */
     private $image;
 
@@ -53,6 +62,8 @@ class Mariage
      * @var string|null
      *
      * @ORM\Column(name="traduction", type="string", length=255, nullable=true)
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $traduction;
 
@@ -60,6 +71,8 @@ class Mariage
      * @var string|null
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $logo;
 
@@ -67,6 +80,8 @@ class Mariage
      * @var string|null
      *
      * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=true)
+     * @Groups({"mariage"})
+     * @Groups("lesListing")
      */
     private $imageaccueil;
 
@@ -74,30 +89,22 @@ class Mariage
      * @var string|null
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     * @Groups({"mariage"})
      */
     private $url;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Listing", inversedBy="mariage")
-     * @ORM\JoinTable(name="participations",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="mariage_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="listing_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity=Listing::class, mappedBy="mariages")
+     * @Groups({"mariage"})
      */
-    private $listing;
+    private $listings;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->listing = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->listings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,15 +199,16 @@ class Mariage
     /**
      * @return Collection|Listing[]
      */
-    public function getListing(): Collection
+    public function getListings(): Collection
     {
-        return $this->listing;
+        return $this->listings;
     }
 
     public function addListing(Listing $listing): self
     {
-        if (!$this->listing->contains($listing)) {
-            $this->listing[] = $listing;
+        if (!$this->listings->contains($listing)) {
+            $this->listings[] = $listing;
+            $listing->addMariage($this);
         }
 
         return $this;
@@ -208,7 +216,9 @@ class Mariage
 
     public function removeListing(Listing $listing): self
     {
-        $this->listing->removeElement($listing);
+        if ($this->listings->removeElement($listing)) {
+            $listing->removeMariage($this);
+        }
 
         return $this;
     }

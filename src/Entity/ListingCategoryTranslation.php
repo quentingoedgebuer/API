@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * ListingCategoryTranslation
@@ -25,6 +26,8 @@ class ListingCategoryTranslation
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @Groups("listingCategory")
+     * @Groups("listing")
      */
     private $name;
 
@@ -32,6 +35,8 @@ class ListingCategoryTranslation
      * @var string|null
      *
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     * @Groups("listingCategory")
+     * @Groups("listing")
      */
     private $slug;
 
