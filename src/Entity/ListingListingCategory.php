@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use App\Repository\ListingListingCategoryRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -15,7 +16,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiResource(normalizationContext={"groups"={"listing"}})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing_listing_category", indexes={@ORM\Index(name="IDX_1AFD54EAD4619D1A", columns={"listing_id"}), @ORM\Index(name="IDX_1AFD54EA455844B0", columns={"listing_category_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ListingListingCategoryRepository::class)
  */
 class ListingListingCategory
 {
@@ -25,6 +26,7 @@ class ListingListingCategory
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @Groups({"listing"})
+     * @Groups("listingCategory")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;

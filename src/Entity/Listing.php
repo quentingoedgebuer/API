@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ListingRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,15 +11,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
-
-
 /**
  * Listing
  *
  * @ApiResource(normalizationContext={"groups"={"lesListing"}})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CB0048D464D218E", columns={"location_id"})}, indexes={@ORM\Index(name="status_l_idx", columns={"status"}), @ORM\Index(name="min_duration_idx", columns={"min_duration"}), @ORM\Index(name="admin_notation_idx", columns={"admin_notation"}), @ORM\Index(name="IDX_CB0048D4A76ED395", columns={"user_id"}), @ORM\Index(name="price_idx", columns={"price"}), @ORM\Index(name="max_duration_idx", columns={"max_duration"}), @ORM\Index(name="created_at_l_idx", columns={"createdAt"}), @ORM\Index(name="type_idx", columns={"type"}), @ORM\Index(name="average_rating_idx", columns={"average_rating"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ListingRepository::class)
  */
 class Listing
 {
@@ -30,6 +29,8 @@ class Listing
      * @Groups("unMariage")
      * @Groups({"lesListing"})
      * @Groups("listing")
+     * @Groups("utilisateur")
+     * @Groups("listingCategory")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -39,7 +40,7 @@ class Listing
      *
      * @Groups("listing")
      * @Groups("mariage")
-     * @ORM\Column(name="status", type="smallint", nullable=false)
+     * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     private $status;
 
@@ -47,8 +48,10 @@ class Listing
      * @var int|null
      *
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"lesListing"})
      * @Groups("listing")
+     * @Groups("utilisateur")
      * @ORM\Column(name="type", type="smallint", nullable=true)
      */
     private $type;
@@ -57,9 +60,11 @@ class Listing
      * @var string|null
      *
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"lesListing"})
      * @Groups("listing")
-     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=true)
+     * @Groups("utilisateur")
+     * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=false)
      */
     private $price;
 
@@ -67,8 +72,10 @@ class Listing
      * @var bool|null
      *
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups("listing")
-     * @ORM\Column(name="certified", type="boolean", nullable=true)
+     * @Groups("utilisateur")
+     * @ORM\Column(name="certified", type="boolean", nullable=false)
      */
     private $certified;
 
@@ -92,7 +99,7 @@ class Listing
      * @var int
      *
      * @Groups("listing")
-     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=false)
+     * @ORM\Column(name="cancellation_policy", type="smallint", nullable=true)
      */
     private $cancellationPolicy;
 
@@ -140,6 +147,7 @@ class Listing
      * @var \DateTime|null
      *
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"lesListing"})
      * @Groups("listing")
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
@@ -152,6 +160,7 @@ class Listing
      * @Groups({"lesListing"})
      * @Groups("listing")
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @ORM\ManyToOne(targetEntity="ListingLocation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="location_id", referencedColumnName="id")
@@ -165,6 +174,7 @@ class Listing
      * @ORM\ManyToOne(targetEntity="User")
      * @Groups({"lesListing"})
      * @Groups("listing")
+     * @Groups("listingCategory")
      * @Groups("mariage")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -174,9 +184,11 @@ class Listing
 
     /**
      * @Groups({"lesListing"})
+     * @Groups("utilisateur")
      * @Groups("listing")
+     * @Groups("listingCategory")
      * @Groups("mariage")
-     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="Listing")
+     * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="listing")
      */
     private $ListingImage;
     

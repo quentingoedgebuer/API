@@ -7,11 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
- * @ApiResource()
+ * @ApiResource(normalizationContext={"groups"={"Article"}, "enable_max_depth"=true})
+ * @ApiFilter(SearchFilter::class, properties={*})
  * @APIFilter(SearchFilter::class,properties={"url":"exact", "titre":"partial"})
 
 
@@ -22,42 +24,53 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("categorie")
+     * @Groups({"Article"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("categorie")
+     * @Groups({"Article"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("categorie")
+     * @Groups({"Article"})
      */
     private $contenu;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
+     * @Groups({"Article"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Article"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"Article"})
      */
     private $extrait;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"Article"})
      */
     private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"Article"})
      */
     private $categorie;
 

@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- * @ApiResource
- * @ApiFilter(SearchFilter::class, properties={*})
+ * @ApiResource(normalizationContext={"groups"={"utilisateur"}})
+ * @ApiFilter(SearchFilter::class, properties={"companyName": "partial", "profession": "partial", "personType": "exact", "createdat": "exact"})
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
  * @ORM\Entity
  * 
@@ -27,6 +27,7 @@ class User
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @Groups("lesListing")
+     * @Groups({"utilisateur"})
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -35,6 +36,7 @@ class User
      * @var string
      *
      * @Groups("lesListing")
+     * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      * 
@@ -46,7 +48,7 @@ class User
      *
      * @Groups("lesListing")
      *
-     * @ORM\Column(name="username_canonical", type="string", length=255, nullable=false)
+     * @ORM\Column(name="username_canonical", type="string", length=255, nullable=true)
      * 
      */
     private $usernameCanonical;
@@ -63,7 +65,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="email_canonical", type="string", length=255, nullable=false)
+     * @ORM\Column(name="email_canonical", type="string", length=255, nullable=true)
      *
      */
     private $emailCanonical;
@@ -72,15 +74,16 @@ class User
      * @var bool
      *
      * @Groups("lesListing")
+     * @Groups({"utilisateur"})
      *
-     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     private $enabled;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      *
      */
     private $salt;
@@ -108,7 +111,7 @@ class User
      *
      * @Groups("lesListing")
      *
-     * @ORM\Column(name="locked", type="boolean", nullable=false)
+     * @ORM\Column(name="locked", type="boolean", nullable=true)
      */
     private $locked;
 
@@ -116,7 +119,7 @@ class User
      * @var bool
      *
      *
-     * @ORM\Column(name="expired", type="boolean", nullable=false)
+     * @ORM\Column(name="expired", type="boolean", nullable=true)
      */
     private $expired;
 
@@ -124,6 +127,7 @@ class User
      * @var \DateTime|null
      *
      *
+     * @Groups({"utilisateur"})
      * @ORM\Column(name="expires_at", type="datetime", nullable=true)
      */
     private $expiresAt;
@@ -159,7 +163,7 @@ class User
      * @var bool
      *
      *
-     * @ORM\Column(name="credentials_expired", type="boolean", nullable=false)
+     * @ORM\Column(name="credentials_expired", type="boolean", nullable=true)
      */
     private $credentialsExpired;
 
@@ -175,7 +179,7 @@ class User
      * @var int
      *
      * @Groups("lesListing")
-     *
+     * @Groups({"utilisateur"})
      * @ORM\Column(name="person_type", type="smallint", nullable=false)
      */
     private $personType;
@@ -185,6 +189,7 @@ class User
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="company_name", type="string", length=100, nullable=true)
      */
@@ -231,7 +236,7 @@ class User
      *
      * @Groups("lesListing")
      *
-     * @ORM\Column(name="birthday", type="date", nullable=false)
+     * @ORM\Column(name="birthday", type="date", nullable=true)
      */
     private $birthday;
 
@@ -240,6 +245,7 @@ class User
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="nationality", type="string", length=3, nullable=true)
      */
@@ -259,8 +265,9 @@ class User
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups({"utilisateur"})
      *
-     * @ORM\Column(name="profession", type="string", length=50, nullable=true)
+     * @ORM\Column(name="profession", type="string", length=50, nullable=false)
      */
     private $profession;
 
@@ -436,21 +443,23 @@ class User
      * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      *
      */
     private $addresses;
 
     /**
      * @Groups("lesListing")
-     *
-     * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
      * @Groups("mariage")
+     * @Groups({"utilisateur"})
+     * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
      */
     private $images;
 
     /**
      *
      * @ORM\OneToMany(targetEntity=Listing::class, mappedBy="user")
+     * @Groups({"utilisateur"})
      */
     private $Listing;
 

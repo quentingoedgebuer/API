@@ -23,6 +23,7 @@ class UserAddress
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -34,7 +35,7 @@ class UserAddress
      *
      * @Groups("lesListing")
      * @Groups("mariage")
-     * @ORM\Column(name="type", type="smallint", nullable=false, options={"default"="1"})
+     * @ORM\Column(name="type", type="smallint", nullable=true, options={"default"="1"})
      */
     private $type = '1';
 
@@ -43,6 +44,7 @@ class UserAddress
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * 
      */
@@ -53,6 +55,7 @@ class UserAddress
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * 
      */

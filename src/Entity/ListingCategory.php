@@ -34,7 +34,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -43,7 +43,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="texte", type="text", length=0, nullable=false)
+     * @ORM\Column(name="texte", type="text", length=0, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -52,7 +52,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="texteaccueil", type="text", length=0, nullable=false)
+     * @ORM\Column(name="texteaccueil", type="text", length=0, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -61,7 +61,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -70,7 +70,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=false)
+     * @ORM\Column(name="imageaccueil", type="string", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -79,7 +79,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -88,7 +88,7 @@ class ListingCategory
     /**
      * @var string|null
      *
-     * @ORM\Column(name="description", type="text", length=255, nullable=false)
+     * @ORM\Column(name="description", type="text", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -97,7 +97,7 @@ class ListingCategory
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="accueil", type="boolean", nullable=false)
+     * @ORM\Column(name="accueil", type="boolean", nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
      */
@@ -106,8 +106,7 @@ class ListingCategory
     /**
      * @var int
      *
-     * @ORM\Column(name="lft", type="integer", nullable=false)
-     * @Groups({"listingCategory"})
+     * @ORM\Column(name="lft", type="integer", nullable=true)
      * @Groups("listing")
      */
     private $lft;
@@ -115,8 +114,7 @@ class ListingCategory
     /**
      * @var int
      *
-     * @ORM\Column(name="lvl", type="integer", nullable=false)
-     * @Groups({"listingCategory"})
+     * @ORM\Column(name="lvl", type="integer", nullable=true)
      * @Groups("listing")
      */
     private $lvl;
@@ -124,8 +122,7 @@ class ListingCategory
     /**
      * @var int
      *
-     * @ORM\Column(name="rgt", type="integer", nullable=false)
-     * @Groups({"listingCategory"})
+     * @ORM\Column(name="rgt", type="integer", nullable=true)
      * @Groups("listing")
      */
     private $rgt;
@@ -134,7 +131,6 @@ class ListingCategory
      * @var int|null
      *
      * @ORM\Column(name="root", type="integer", nullable=true)
-     * @Groups({"listingCategory"})
      * @Groups("listing")
      */
     private $root;
@@ -143,11 +139,11 @@ class ListingCategory
      * @var \ListingCategory
      *
      * @ORM\ManyToOne(targetEntity="ListingCategory")
+     * @Groups({"listingCategory"})
      * @Groups("listing")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * })
-     * @Groups({"listingCategory"})
      */
     private $parent;
 

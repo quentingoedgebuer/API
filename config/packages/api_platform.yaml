@@ -7,3 +7,5 @@ api_platform:
         versions: [3]
     eager_loading:
         max_joins: 400
+    collection:
+        order_parameter_name: '_order' # the URL query parameter to use is now "_order"

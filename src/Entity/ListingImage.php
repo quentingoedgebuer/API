@@ -24,6 +24,7 @@ class ListingImage
      * @ORM\Id
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -33,6 +34,7 @@ class ListingImage
      *
      * @Groups("lesListing")
      * @Groups("mariage")
+     * @Groups("utilisateur")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -46,20 +48,11 @@ class ListingImage
      */
     private $position;
 
-    /**
-     * @var \Listing
-     *
-     * @ORM\ManyToOne(targetEntity="Listing")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="listing_id", referencedColumnName="id")
-     * })
-     */
-    private $listing;
 
     /**
      * @ORM\ManyToOne(targetEntity=Listing::class, inversedBy="ListingImage")
      */
-    private $Listing;
+    private $listing;
 
     public function getId(): ?int
     {

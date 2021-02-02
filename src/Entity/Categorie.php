@@ -9,11 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
- * @ApiResource()
+ * @ApiResource(normalizationContext={"groups"={"categorie"}})
  * @APIFilter(SearchFilter::class,properties={"libelle":"exact"})
 
  */
@@ -23,16 +24,21 @@ class Categorie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"categorie"})
+     * @Groups("Article")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Groups({"categorie"})
+     * @Groups("Article")
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="categorie", orphanRemoval=true)
+     * @Groups({"categorie"})
      */
     private $articles;
 
