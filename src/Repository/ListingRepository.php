@@ -15,7 +15,22 @@ class ListingRepository extends ServiceEntityRepository
 
 	public function findAllBySearch(String $search, String $location) : array
 	{
+		$listMotCle = explode(" ", $search);
+		$listLocation = explode(" ", $location);
+
 		$conn = $this->getEntityManager()->getConnection();
+
+		$sqlMotCle = "";
+		foreach ($listMotCle as $m) {
+			$sqlMotCle .= "AND (u.company_name LIKE '%".$m."%'
+			OR u.profession LIKE '%".$m."%'
+			OR lct.name LIKE '%".$m."%')";
+		}
+
+		$sqlLocation = "";
+		foreach ($listLocation as $l) {
+			$sqlLocation = "AND (ua.city LIKE '%".$l."%')";
+		}
 		
 		$sqlSearch = "SELECT l.price, l.certified, u.company_name, u.profession, ua.city, lct.name AS category,
 		(SELECT name FROM user_image WHERE user_id = u.id LIMIT 1) AS user_image,
@@ -25,17 +40,12 @@ class ListingRepository extends ServiceEntityRepository
 		AND ua.user_id = u.id
 		AND llc.listing_id = l.id
 		AND llc.listing_category_id = lc.id
-		AND lct.translatable_id = lc.id
-		AND (u.company_name LIKE :search
-		OR u.profession LIKE :search
-		OR lct.name LIKE :search)
-		AND (ua.city LIKE :location)";
+		AND lct.translatable_id = lc.id "
+		.$sqlMotCle ." 
+		".$sqlLocation;
 
         $stmt = $conn->prepare($sqlSearch);
-		$stmt->execute([
-			"search" => "%".$search."%",
-			"location" => "%".$location."%"
-		]);
+		$stmt->execute();
 
         return $stmt->fetchAll();
 	}

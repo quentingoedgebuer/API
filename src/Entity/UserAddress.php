@@ -21,7 +21,7 @@ class UserAddress
     /**
      * @var int
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -33,7 +33,7 @@ class UserAddress
     /**
      * @var int
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
      * @ORM\Column(name="type", type="smallint", nullable=true, options={"default"="1"})
      */
@@ -42,9 +42,10 @@ class UserAddress
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
+     * @Groups("listingCategory")
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * 
      */
@@ -53,9 +54,10 @@ class UserAddress
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
+     * @Groups("listingCategory")
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * 
      */
@@ -64,11 +66,7 @@ class UserAddress
     /**
      * @var string|null
      *
-     * 
-     * @Groups("lesListing")
-     * @Groups("mariage")
-     * @ORM\Column(name="zip", type="string", length=50, nullable=true)
-     * 
+     * @ORM\Column(name="zip", type="string", length=50, nullable=true) 
      */
     private $zip;
 

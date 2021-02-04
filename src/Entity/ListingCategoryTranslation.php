@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
+use App\Repository\ListingCategoryTranslationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * ListingCategoryTranslation
- *
+ * @ApiResource()
  * @ORM\Table(name="listing_category_translation", uniqueConstraints={@ORM\UniqueConstraint(name="listing_category_translation_unique_translation", columns={"translatable_id", "locale"})}, indexes={@ORM\Index(name="name_idx", columns={"name"}), @ORM\Index(name="IDX_606EDC1F2C2AC5D3", columns={"translatable_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ListingCategoryTranslationRepository::class)
  */
 class ListingCategoryTranslation
 {
@@ -18,6 +21,8 @@ class ListingCategoryTranslation
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
+     * @Groups("listing")
+     * @Groups("mariage")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -28,6 +33,7 @@ class ListingCategoryTranslation
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      * @Groups("listingCategory")
      * @Groups("listing")
+     * @Groups("mariage")
      */
     private $name;
 
@@ -44,6 +50,7 @@ class ListingCategoryTranslation
      * @var string
      *
      * @ORM\Column(name="locale", type="string", length=255, nullable=false)
+     * @Groups("listing")
      */
     private $locale;
 

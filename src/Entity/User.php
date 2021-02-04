@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -16,8 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(normalizationContext={"groups"={"utilisateur"}})
  * @ApiFilter(SearchFilter::class, properties={"companyName": "partial", "profession": "partial", "personType": "exact", "createdat": "exact"})
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D64992FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_8D93D649A0D96FBF", columns={"email_canonical"})}, indexes={@ORM\Index(name="slug_u_idx", columns={"slug"}), @ORM\Index(name="enabled_idx", columns={"enabled"}), @ORM\Index(name="created_at_u_idx", columns={"createdAt"}), @ORM\Index(name="email_idx", columns={"email"})})
- * @ORM\Entity
- * 
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User
 {
@@ -26,7 +26,8 @@ class User
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @Groups("lesListing")
+     * @Groups("listing")
+     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -35,7 +36,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
@@ -46,7 +47,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="username_canonical", type="string", length=255, nullable=true)
      * 
@@ -56,7 +57,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
@@ -73,7 +74,7 @@ class User
     /**
      * @var bool
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
@@ -91,7 +92,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
@@ -100,7 +101,7 @@ class User
     /**
      * @var \DateTime|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
@@ -109,7 +110,7 @@ class User
     /**
      * @var bool
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="locked", type="boolean", nullable=true)
      */
@@ -135,7 +136,7 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
      */
@@ -144,7 +145,7 @@ class User
     /**
      * @var \DateTime|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
      */
@@ -153,7 +154,8 @@ class User
     /**
      * @var array
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
+     * @Groups("listingCategory")
      *
      * @ORM\Column(name="roles", type="array", length=0, nullable=false)
      */
@@ -178,7 +180,7 @@ class User
     /**
      * @var int
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups({"utilisateur"})
      * @ORM\Column(name="person_type", type="smallint", nullable=false)
      */
@@ -187,8 +189,9 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="company_name", type="string", length=100, nullable=true)
@@ -198,7 +201,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
      */
@@ -207,7 +210,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
      */
@@ -216,7 +219,7 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="phone_prefix", type="string", length=6, nullable=true)
      */
@@ -225,7 +228,7 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="phone", type="string", length=16, nullable=true)
      */
@@ -234,7 +237,7 @@ class User
     /**
      * @var \DateTime
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="birthday", type="date", nullable=true)
      */
@@ -243,8 +246,7 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
-     * @Groups("mariage")
+     * @Groups("listing")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="nationality", type="string", length=3, nullable=true)
@@ -254,7 +256,7 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="country_of_residence", type="string", length=3, nullable=true)
      */
@@ -263,8 +265,9 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="profession", type="string", length=50, nullable=false)
@@ -417,7 +420,7 @@ class User
     /**
      * @var \DateTime|null
      *
-     * @Groups("lesListing")
+     * @Groups("listing")
      *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
@@ -440,17 +443,19 @@ class User
     private $group;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
-     * @Groups("utilisateur")
+     * @Groups("listingCategory")
+     * @Groups({"utilisateur"})
+     * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
      *
      */
     private $addresses;
 
     /**
-     * @Groups("lesListing")
+     * @Groups("listing")
      * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
      */

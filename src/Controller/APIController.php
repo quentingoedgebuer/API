@@ -6,31 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\ListingListingCategory;
+use App\Entity\ListingCategoryTranslation;
 use App\Entity\Listing;
+use App\Entity\User;
+
 use App\Repository\ListingListingCategoryRepository;
 use App\Repository\ListingRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\UserRepository;
 
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
-
 class APIController extends AbstractController
 {
-    /**
-     * @Route("/api/custom/getListingCategorie/{url}", name="getListingCategorie")
-     */
-    public function getListingCategorie(String $url): Response
-    {
-        $ListingListingCategory = $this->getDoctrine()
-            ->getRepository(ListingListingCategory::class)
-            ->findAllListingCategory($url);
-
-        return new JsonResponse($ListingListingCategory);
-    }
-
     /**
      * @Route("/api/custom/getListingRecherche/", name="getListingRecherche")
      */
@@ -49,4 +39,79 @@ class APIController extends AbstractController
 
         return new JsonResponse($ListingListingCategory);
      }
+
+    /**
+     * @Route("/api/custom/getListingCategoryRecherche/", name="getListingCategoryRecherche")
+     */
+     public function getListingCategoryRecherche(Request $request)
+     {
+        $ListingCategoryTranslation = [];
+
+        $search = $request->query->get('search');
+
+        if(!empty($search)){
+            $ListingCategoryTranslation = $this->getDoctrine()
+                ->getRepository(ListingCategoryTranslation::class)
+                ->findAllBySearch($search);
+        }
+
+        return new JsonResponse($ListingCategoryTranslation);
+     }
+
+      /**
+     * @Route("/api/custom/getLesUsers/", name="getLesUsers")
+     */
+    public function getLesUsers(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAllUsers();
+       
+       return new JsonResponse($users);
+    }
+
+
+     /**
+     * @Route("/api/custom/getLesPrestataires/", name="getLesPrestataires")
+     */
+    public function getLesPrestataires(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAllPrestataires();
+       
+       return new JsonResponse($users);
+    }
+
+    /**
+     * @Route("/api/custom/getLesUsersLastMonth/", name="getLesUsersLastMonth")
+     */
+    public function getLesUsersLastMonth(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findInscriptionLastMonth();
+       
+       return new JsonResponse($users);
+    }
+
+     /**
+     * @Route("/api/custom/getLesUsersLastWeek/", name="getLesUsersLastWeek")
+     */
+    public function getLesUsersLastWeek(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findInscriptionLastWeek();
+       
+       return new JsonResponse($users);
+    }
 }

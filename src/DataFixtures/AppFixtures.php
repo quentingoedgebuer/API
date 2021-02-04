@@ -11,6 +11,7 @@ use App\Entity\UserImage;
 use App\Entity\Listing;
 use App\Entity\ListingImage;
 use App\Entity\ListingCategory;
+use App\Entity\ListingListingCategory;
 use App\Entity\listingCategoryTranslation;
 use App\Entity\Mariage;
 use App\Entity\Article;
@@ -37,11 +38,11 @@ class AppFixtures extends Fixture
         // Create mariage
         $this->loadMariage();
 
-        // Create user and listing
-        $this->loadUserListing(10);
-
         // Create listingCategory
         $this->loadCategorie();
+
+        // Create user and listing
+        $this->loadUserListing(120);
 
         // Create article and category article 
         $this->loadArticleCategory();
@@ -64,8 +65,10 @@ class AppFixtures extends Fixture
             $user->setCompanyName($this->faker->company());
             $user->setLastName($this->faker->lastName());
             $user->setFirstName($this->faker->firstName());
+            $user->setPhone($this->faker->e164PhoneNumber());
             $user->setNationality("FR");
-            $user->setProfession($this->faker->word());
+            $user->setProfession($this->faker->company());
+            $user->setCreatedat($this->faker->dateTimeInInterval('-20 days', '+20 days'));
             $this->manager->persist($user);
 
             $userAdress = new UserAddress();
@@ -82,7 +85,7 @@ class AppFixtures extends Fixture
 
             $listing = new Listing();
             $listing->setStatus(2);
-            $listing->setPrice($this->faker->randomDigit());
+            $listing->setPrice($this->faker->numberBetween(100, 2000));
             $listing->setCertified(false);
             $user->addListing($listing);
             $this->manager->persist($listing);
@@ -98,8 +101,14 @@ class AppFixtures extends Fixture
                 $listing->addMariage($this->getReference("mariage-".mt_rand(1,8)));
             }
 
+            // Ajoute des category aux prestataires
+            for ($i2=0; $i2 < mt_rand(1,2); $i2++) { 
+                $listing->addListingCategory($this->getReference("cat-".mt_rand(1,17)));
+            }
+
         }
     }
+
 
     public function loadMariage()
     {   
@@ -198,6 +207,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-1", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -211,6 +221,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-2", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -224,6 +235,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-3", $category);
         $this->manager->persist($category);
         // ---
 
@@ -234,15 +246,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
-        $this->manager->persist($category);
-
-        $category = new ListingCategory();
-        $category->setUrl("ttaiteurs");
-        $lct = new listingCategoryTranslation();
-        $lct->setName("Traiteurs");
-        $lct->setLocale("fr");
-        $this->manager->persist($lct);
-        $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-4", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -252,6 +256,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-5", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -261,6 +266,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-6", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -270,6 +276,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-7", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -279,6 +286,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-8", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -288,6 +296,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-9", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -297,6 +306,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-10", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -306,6 +316,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-11", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -315,6 +326,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-12", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -324,6 +336,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-13", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -333,6 +346,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-14", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -342,6 +356,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-15", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -351,6 +366,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-16", $category);
         $this->manager->persist($category);
 
         $category = new ListingCategory();
@@ -360,6 +376,7 @@ class AppFixtures extends Fixture
         $lct->setLocale("fr");
         $this->manager->persist($lct);
         $category->addListingCategoryTranslation($lct);
+        $this->addReference("cat-17", $category);
         $this->manager->persist($category);
     }
 

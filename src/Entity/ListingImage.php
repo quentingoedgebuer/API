@@ -22,7 +22,8 @@ class ListingImage
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @Groups("lesListing")
+     * @Groups("listingCategory")
+     * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -32,7 +33,8 @@ class ListingImage
     /**
      * @var string
      *
-     * @Groups("lesListing")
+     * @Groups("listingCategory")
+     * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
@@ -42,7 +44,8 @@ class ListingImage
     /**
      * @var int
      *
-     * @Groups("lesListing")
+     * @Groups("listingCategory")
+     * @Groups("listing")
      * @Groups("mariage")
      * @ORM\Column(name="position", type="smallint", nullable=false)
      */

@@ -6,17 +6,17 @@ use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
+
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
- * @ApiResource(normalizationContext={"groups"={"Article"}, "enable_max_depth"=true})
- * @ApiFilter(SearchFilter::class, properties={*})
+ * @ApiResource(denormalizationContext={"groups"={"Article"}, "enable_max_depth"=true})
  * @APIFilter(SearchFilter::class,properties={"url":"exact", "titre":"partial"})
-
-
  */
 class Article
 {
@@ -44,7 +44,7 @@ class Article
     private $contenu;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      * @Groups({"Article"})
      */
     private $date;
@@ -68,11 +68,16 @@ class Article
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="articles", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"Article"})
      */
     private $categorie;
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

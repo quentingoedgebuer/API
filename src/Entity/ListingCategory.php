@@ -28,6 +28,7 @@ class ListingCategory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @Groups({"listingCategory"})
      * @Groups("listing")
+     * @Groups("mariage")
      */
     private $id;
 
@@ -107,7 +108,6 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="lft", type="integer", nullable=true)
-     * @Groups("listing")
      */
     private $lft;
 
@@ -115,7 +115,6 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="lvl", type="integer", nullable=true)
-     * @Groups("listing")
      */
     private $lvl;
 
@@ -123,7 +122,6 @@ class ListingCategory
      * @var int
      *
      * @ORM\Column(name="rgt", type="integer", nullable=true)
-     * @Groups("listing")
      */
     private $rgt;
 
@@ -131,7 +129,6 @@ class ListingCategory
      * @var int|null
      *
      * @ORM\Column(name="root", type="integer", nullable=true)
-     * @Groups("listing")
      */
     private $root;
 
@@ -151,12 +148,20 @@ class ListingCategory
      * @ORM\OneToMany(targetEntity=ListingCategoryTranslation::class, mappedBy="translatable")
      * @Groups({"listingCategory"})
      * @Groups("listing")
+     * @Groups("mariage")
      */
     private $listingCategoryTranslations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Listing::class, mappedBy="ListingCategory")
+     * @Groups({"listingCategory"})
+     */
+    private $listings;
 
     public function __construct()
     {
         $this->listingCategoryTranslations = new ArrayCollection();
+        $this->listings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -345,6 +350,33 @@ class ListingCategory
             if ($listingCategoryTranslation->getTranslatable() === $this) {
                 $listingCategoryTranslation->setTranslatable(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Listing[]
+     */
+    public function getListings(): Collection
+    {
+        return $this->listings;
+    }
+
+    public function addListing(Listing $listing): self
+    {
+        if (!$this->listings->contains($listing)) {
+            $this->listings[] = $listing;
+            $listing->addListingCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListing(Listing $listing): self
+    {
+        if ($this->listings->removeElement($listing)) {
+            $listing->removeListingCategory($this);
         }
 
         return $this;
