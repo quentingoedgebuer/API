@@ -11,12 +11,15 @@ use App\Entity\UserImage;
 use App\Entity\Listing;
 use App\Entity\ListingImage;
 use App\Entity\ListingCategory;
+use App\Entity\ListingLocation;
 use App\Entity\ListingListingCategory;
 use App\Entity\listingCategoryTranslation;
+use App\Entity\listingTranslation;
 use App\Entity\Mariage;
 use App\Entity\Article;
 use App\Entity\Categorie;
 use App\Entity\Theme;
+
 
 class AppFixtures extends Fixture
 {
@@ -67,7 +70,7 @@ class AppFixtures extends Fixture
             $user->setFirstName($this->faker->firstName());
             $user->setPhone($this->faker->e164PhoneNumber());
             $user->setNationality("FR");
-            $user->setProfession($this->faker->company());
+            $user->setProfession("null");
             $user->setCreatedat($this->faker->dateTimeInInterval('-20 days', '+20 days'));
             $this->manager->persist($user);
 
@@ -96,6 +99,17 @@ class AppFixtures extends Fixture
             $listing->addListingImage($listingImage);
             $this->manager->persist($listingImage);
 
+            $listingLocation = new ListingLocation();
+            $listingLocation->setCountry("FR");
+            $listingLocation->setCity($this->faker->city());
+            $listing->setLocation($listingLocation);
+            $this->manager->persist($listingLocation);
+
+            $listingTranslation = new listingTranslation();
+            $listingTranslation->setTitle($this->faker->company());
+            $listing->addTranslation($listingTranslation);
+            $this->manager->persist($listingTranslation);
+
             // Ajoute des mariages aux prestataires
             for ($i2=0; $i2 < mt_rand(3,5); $i2++) { 
                 $listing->addMariage($this->getReference("mariage-".mt_rand(1,8)));
@@ -108,7 +122,6 @@ class AppFixtures extends Fixture
 
         }
     }
-
 
     public function loadMariage()
     {   
@@ -392,7 +405,7 @@ class AppFixtures extends Fixture
         $article = new Article();
         $article->setTitre("test");
         $article->setContenu("testtest");
-        //$article->setDate(null);
+        $article->setDate($this->faker->dateTimeInInterval('-20 days', '+20 days'));
         $article->setUrl("test");
         $article->setExtrait("test");
         $article->setImage("test");

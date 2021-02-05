@@ -38,7 +38,6 @@ class User
      *
      * @Groups("listing")
      * @Groups({"utilisateur"})
-     *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      * 
      */
@@ -46,8 +45,6 @@ class User
 
     /**
      * @var string
-     *
-     * @Groups("listing")
      *
      * @ORM\Column(name="username_canonical", type="string", length=255, nullable=true)
      * 
@@ -58,7 +55,6 @@ class User
      * @var string
      *
      * @Groups("listing")
-     *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
@@ -73,9 +69,6 @@ class User
 
     /**
      * @var bool
-     *
-     * @Groups("listing")
-     * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
@@ -92,8 +85,6 @@ class User
     /**
      * @var string
      *
-     * @Groups("listing")
-     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
@@ -101,7 +92,6 @@ class User
     /**
      * @var \DateTime|null
      *
-     * @Groups("listing")
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
@@ -110,15 +100,12 @@ class User
     /**
      * @var bool
      *
-     * @Groups("listing")
-     *
      * @ORM\Column(name="locked", type="boolean", nullable=true)
      */
     private $locked;
 
     /**
      * @var bool
-     *
      *
      * @ORM\Column(name="expired", type="boolean", nullable=true)
      */
@@ -136,16 +123,12 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("listing")
-     *
      * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
      */
     private $confirmationToken;
 
     /**
      * @var \DateTime|null
-     *
-     * @Groups("listing")
      *
      * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
      */
@@ -155,7 +138,6 @@ class User
      * @var array
      *
      * @Groups("listing")
-     * @Groups("listingCategory")
      *
      * @ORM\Column(name="roles", type="array", length=0, nullable=false)
      */
@@ -164,14 +146,12 @@ class User
     /**
      * @var bool
      *
-     *
      * @ORM\Column(name="credentials_expired", type="boolean", nullable=true)
      */
     private $credentialsExpired;
 
     /**
      * @var \DateTime|null
-     *
      *
      * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
      */
@@ -180,7 +160,6 @@ class User
     /**
      * @var int
      *
-     * @Groups("listing")
      * @Groups({"utilisateur"})
      * @ORM\Column(name="person_type", type="smallint", nullable=false)
      */
@@ -190,8 +169,6 @@ class User
      * @var string|null
      *
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="company_name", type="string", length=100, nullable=true)
@@ -219,7 +196,6 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("listing")
      *
      * @ORM\Column(name="phone_prefix", type="string", length=6, nullable=true)
      */
@@ -237,7 +213,6 @@ class User
     /**
      * @var \DateTime
      *
-     * @Groups("listing")
      *
      * @ORM\Column(name="birthday", type="date", nullable=true)
      */
@@ -266,8 +241,6 @@ class User
      * @var string|null
      *
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      *
      * @ORM\Column(name="profession", type="string", length=50, nullable=false)
@@ -444,8 +417,6 @@ class User
 
     /**
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("listingCategory")
      * @Groups({"utilisateur"})
      * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
      *

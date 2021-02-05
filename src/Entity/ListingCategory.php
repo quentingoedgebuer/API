@@ -90,8 +90,6 @@ class ListingCategory
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", length=255, nullable=true)
-     * @Groups({"listingCategory"})
-     * @Groups("listing")
      */
     private $description;
 
@@ -99,8 +97,6 @@ class ListingCategory
      * @var bool|null
      *
      * @ORM\Column(name="accueil", type="boolean", nullable=true)
-     * @Groups({"listingCategory"})
-     * @Groups("listing")
      */
     private $accueil;
 
@@ -136,8 +132,6 @@ class ListingCategory
      * @var \ListingCategory
      *
      * @ORM\ManyToOne(targetEntity="ListingCategory")
-     * @Groups({"listingCategory"})
-     * @Groups("listing")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * })

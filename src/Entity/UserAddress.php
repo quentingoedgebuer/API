@@ -22,8 +22,6 @@ class UserAddress
      * @var int
      *
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("utilisateur")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -34,7 +32,6 @@ class UserAddress
      * @var int
      *
      * @Groups("listing")
-     * @Groups("mariage")
      * @ORM\Column(name="type", type="smallint", nullable=true, options={"default"="1"})
      */
     private $type = '1';
@@ -43,9 +40,6 @@ class UserAddress
      * @var string|null
      *
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("utilisateur")
-     * @Groups("listingCategory")
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      * 
      */
@@ -55,9 +49,6 @@ class UserAddress
      * @var string|null
      *
      * @Groups("listing")
-     * @Groups("mariage")
-     * @Groups("utilisateur")
-     * @Groups("listingCategory")
      * @ORM\Column(name="city", type="string", length=255, nullable=true)
      * 
      */
@@ -90,7 +81,6 @@ class UserAddress
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedat;
-
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")

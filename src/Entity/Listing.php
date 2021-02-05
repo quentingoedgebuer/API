@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Listing
  *
- * @ApiResource(normalizationContext={"groups"={"listing"}},attributes={"pagination_items_per_page"=8})
+ * @ApiResource(normalizationContext={"groups"={"listing"}},attributes={"pagination_items_per_page"=16})
  * @ApiFilter(SearchFilter::class, properties={*})
  * @ORM\Table(name="listing", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CB0048D464D218E", columns={"location_id"})}, indexes={@ORM\Index(name="status_l_idx", columns={"status"}), @ORM\Index(name="min_duration_idx", columns={"min_duration"}), @ORM\Index(name="admin_notation_idx", columns={"admin_notation"}), @ORM\Index(name="IDX_CB0048D4A76ED395", columns={"user_id"}), @ORM\Index(name="price_idx", columns={"price"}), @ORM\Index(name="max_duration_idx", columns={"max_duration"}), @ORM\Index(name="created_at_l_idx", columns={"createdAt"}), @ORM\Index(name="type_idx", columns={"type"}), @ORM\Index(name="average_rating_idx", columns={"average_rating"})})
  * @ORM\Entity(repositoryClass=ListingRepository::class)
@@ -24,12 +24,12 @@ class Listing
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @Groups("unMariage")
+     * @Groups("mariage")
      * @Groups({"listing"})
      * @Groups("utilisateur")
      * @Groups("listingCategory")
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
@@ -70,6 +70,7 @@ class Listing
      * @Groups("mariage")
      * @Groups("listingCategory")
      * @Groups("utilisateur")
+     * @Groups({"listing"})
      * @ORM\Column(name="certified", type="boolean", nullable=false)
      */
     private $certified;
@@ -126,6 +127,7 @@ class Listing
     /**
      * @var \DateTime|null
      *
+     * @Groups({"listing"})
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdat;
@@ -133,7 +135,6 @@ class Listing
     /**
      * @var \DateTime|null
      *
-     * @Groups("mariage")
      * @Groups("listingCategory")
      * @Groups({"listing"})
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
@@ -156,10 +157,10 @@ class Listing
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
      * @Groups({"listing"})
      * @Groups("listingCategory")
      * @Groups("mariage")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -177,6 +178,7 @@ class Listing
     
     /**
      * @Groups({"listing"})
+     * @ORM\JoinTable(name="participations")
      * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
     private $mariages;
@@ -188,11 +190,20 @@ class Listing
      */
     private $ListingCategory;
 
+    /**
+     * @Groups({"listing"})
+     * @Groups("mariage")
+     * @Groups("listingCategory")
+     * @ORM\OneToMany(targetEntity=ListingTranslation::class, mappedBy="translatable")
+     */
+    private $translation;
+
     public function __construct()
     {
         $this->ListingImage = new ArrayCollection();
         $this->mariages = new ArrayCollection();
         $this->ListingCategory = new ArrayCollection();
+        $this->translation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -454,6 +465,36 @@ class Listing
     public function removeListingCategory(ListingCategory $listingCategory): self
     {
         $this->ListingCategory->removeElement($listingCategory);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListingTranslation[]
+     */
+    public function getTranslation(): Collection
+    {
+        return $this->translation;
+    }
+
+    public function addTranslation(ListingTranslation $translation): self
+    {
+        if (!$this->translation->contains($translation)) {
+            $this->translation[] = $translation;
+            $translation->setTranslatable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(ListingTranslation $translation): self
+    {
+        if ($this->translation->removeElement($translation)) {
+            // set the owning side to null (unless already changed)
+            if ($translation->getTranslatable() === $this) {
+                $translation->setTranslatable(null);
+            }
+        }
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210203082513 extends AbstractMigration
+final class Version20210205224949 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,7 +20,7 @@ final class Version20210203082513 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE article (id INT AUTO_INCREMENT NOT NULL, categorie_id INT NOT NULL, titre VARCHAR(255) NOT NULL, contenu LONGTEXT NOT NULL, date DATE DEFAULT NULL, url VARCHAR(255) NOT NULL, extrait VARCHAR(255) NOT NULL, image VARCHAR(255) DEFAULT NULL, INDEX IDX_23A0E66BCF5E72D (categorie_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE article (id INT AUTO_INCREMENT NOT NULL, categorie_id INT NOT NULL, titre VARCHAR(255) NOT NULL, contenu LONGTEXT NOT NULL, date DATE NOT NULL, url VARCHAR(255) NOT NULL, extrait VARCHAR(255) NOT NULL, image VARCHAR(255) DEFAULT NULL, INDEX IDX_23A0E66BCF5E72D (categorie_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE booking (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, listing_id INT DEFAULT NULL, start DATETIME NOT NULL, end DATETIME NOT NULL, start_time DATETIME NOT NULL, end_time DATETIME NOT NULL, status SMALLINT NOT NULL, validated TINYINT(1) NOT NULL, amount NUMERIC(8, 0) DEFAULT NULL, amount_fee_as_asker NUMERIC(8, 0) DEFAULT NULL, amount_fee_as_offerer NUMERIC(8, 0) DEFAULT NULL, amount_total NUMERIC(8, 0) DEFAULT NULL, cancellation_policy SMALLINT NOT NULL, new_booking_at DATETIME DEFAULT NULL, payed_booking_at DATETIME DEFAULT NULL, refused_booking_at DATETIME DEFAULT NULL, canceled_asker_booking_at DATETIME DEFAULT NULL, alerted_expiring TINYINT(1) NOT NULL, alerted_imminent TINYINT(1) NOT NULL, message TEXT NOT NULL, createdAt DATETIME DEFAULT NULL, updatedAt DATETIME DEFAULT NULL, INDEX IDX_E00CEDDEA76ED395 (user_id), INDEX end_idx (end), INDEX status_idx (status), INDEX alerted_expiring_idx (alerted_expiring), INDEX updated_at_idx (updatedAt), INDEX IDX_E00CEDDED4619D1A (listing_id), INDEX start_time_idx (start_time), INDEX validated_idx (validated), INDEX alerted_imminent_idx (alerted_imminent), INDEX start_idx (start), INDEX end_time_idx (end_time), INDEX new_booking_at_idx (new_booking_at), INDEX created_at_idx (createdAt), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE booking_bank_wire (id INT AUTO_INCREMENT NOT NULL, booking_id INT DEFAULT NULL, user_id INT DEFAULT NULL, status SMALLINT NOT NULL, amount NUMERIC(8, 0) NOT NULL, payed_at DATETIME DEFAULT NULL, createdAt DATETIME DEFAULT NULL, updatedAt DATETIME DEFAULT NULL, INDEX created_at_bbw_idx (createdAt), INDEX IDX_8929A0B8A76ED395 (user_id), INDEX status_bbw_idx (status), UNIQUE INDEX UNIQ_8929A0B83301C60 (booking_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE booking_payin_refund (id INT AUTO_INCREMENT NOT NULL, booking_id INT DEFAULT NULL, user_id INT DEFAULT NULL, status SMALLINT NOT NULL, amount NUMERIC(8, 0) NOT NULL, payed_at DATETIME DEFAULT NULL, createdAt DATETIME DEFAULT NULL, updatedAt DATETIME DEFAULT NULL, INDEX created_at_pr_idx (createdAt), INDEX IDX_2CD4E82DA76ED395 (user_id), INDEX status_pr_idx (status), UNIQUE INDEX UNIQ_2CD4E82D3301C60 (booking_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -43,7 +43,7 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('CREATE TABLE image (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE lexik_currency (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(3) NOT NULL, rate NUMERIC(10, 4) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing (id INT AUTO_INCREMENT NOT NULL, location_id INT DEFAULT NULL, user_id INT DEFAULT NULL, status SMALLINT DEFAULT NULL, type SMALLINT DEFAULT NULL, price NUMERIC(8, 0) NOT NULL, certified TINYINT(1) NOT NULL, min_duration SMALLINT DEFAULT NULL, max_duration SMALLINT DEFAULT NULL, cancellation_policy SMALLINT DEFAULT NULL, average_rating SMALLINT DEFAULT NULL, comment_count INT DEFAULT NULL, admin_notation NUMERIC(3, 1) DEFAULT NULL, availabilities_updated_at DATETIME DEFAULT NULL, createdAt DATETIME DEFAULT NULL, updatedAt DATETIME DEFAULT NULL, INDEX status_l_idx (status), INDEX min_duration_idx (min_duration), INDEX admin_notation_idx (admin_notation), INDEX IDX_CB0048D4A76ED395 (user_id), INDEX price_idx (price), INDEX max_duration_idx (max_duration), INDEX created_at_l_idx (createdAt), INDEX type_idx (type), INDEX average_rating_idx (average_rating), UNIQUE INDEX UNIQ_CB0048D464D218E (location_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE listing_mariage (listing_id INT NOT NULL, mariage_id INT NOT NULL, INDEX IDX_30D6976DD4619D1A (listing_id), INDEX IDX_30D6976D192813B (mariage_id), PRIMARY KEY(listing_id, mariage_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE participations (listing_id INT NOT NULL, mariage_id INT NOT NULL, INDEX IDX_FDC6C6E8D4619D1A (listing_id), INDEX IDX_FDC6C6E8192813B (mariage_id), PRIMARY KEY(listing_id, mariage_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing_listing_category (listing_id INT NOT NULL, listing_category_id INT NOT NULL, INDEX IDX_1AFD54EAD4619D1A (listing_id), INDEX IDX_1AFD54EA455844B0 (listing_category_id), PRIMARY KEY(listing_id, listing_category_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing_category (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, url VARCHAR(255) DEFAULT NULL, texte LONGTEXT DEFAULT NULL, texteaccueil LONGTEXT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, imageaccueil VARCHAR(255) DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, description TINYTEXT DEFAULT NULL, accueil TINYINT(1) DEFAULT NULL, lft INT DEFAULT NULL, lvl INT DEFAULT NULL, rgt INT DEFAULT NULL, root INT DEFAULT NULL, INDEX IDX_E0307BBB727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing_category_translation (id INT AUTO_INCREMENT NOT NULL, translatable_id INT DEFAULT NULL, name VARCHAR(100) NOT NULL, slug VARCHAR(255) DEFAULT NULL, locale VARCHAR(255) NOT NULL, INDEX name_idx (name), INDEX IDX_606EDC1F2C2AC5D3 (translatable_id), UNIQUE INDEX listing_category_translation_unique_translation (translatable_id, locale), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -58,7 +58,7 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('CREATE TABLE listing_image (id INT AUTO_INCREMENT NOT NULL, listing_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, position SMALLINT NOT NULL, INDEX IDX_33D3DCD3D4619D1A (listing_id), INDEX position_li_idx (position), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing_listing_characteristic (id INT AUTO_INCREMENT NOT NULL, listing_characteristic_id INT DEFAULT NULL, listing_id INT DEFAULT NULL, listing_characteristic_value_id INT DEFAULT NULL, INDEX IDX_2FD5B3B6D4619D1A (listing_id), INDEX IDX_2FD5B3B6C27F7D66 (listing_characteristic_id), INDEX IDX_2FD5B3B6E3052CD3 (listing_characteristic_value_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE listing_location (id INT AUTO_INCREMENT NOT NULL, coordinate_id INT DEFAULT NULL, listing_id INT DEFAULT NULL, country VARCHAR(3) NOT NULL, city VARCHAR(75) NOT NULL, zip VARCHAR(20) DEFAULT NULL, route VARCHAR(120) DEFAULT NULL, street_number VARCHAR(20) DEFAULT NULL, INDEX IDX_B8E2EBB198BBE953 (coordinate_id), UNIQUE INDEX UNIQ_B8E2EBB1D4619D1A (listing_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE listing_translation (id INT AUTO_INCREMENT NOT NULL, translatable_id INT DEFAULT NULL, title VARCHAR(50) NOT NULL, description TEXT NOT NULL, rules TEXT DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, locale VARCHAR(255) NOT NULL, INDEX slug_idx (slug), INDEX IDX_E3779C3D2C2AC5D3 (translatable_id), UNIQUE INDEX listing_translation_unique_translation (translatable_id, locale), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE listing_translation (id INT AUTO_INCREMENT NOT NULL, translatable_id INT DEFAULT NULL, title VARCHAR(50) NOT NULL, description TEXT DEFAULT NULL, rules TEXT DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, locale VARCHAR(255) DEFAULT NULL, INDEX slug_idx (slug), INDEX IDX_E3779C3D2C2AC5D3 (translatable_id), UNIQUE INDEX listing_translation_unique_translation (translatable_id, locale), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE mariage (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(40) NOT NULL, texte LONGTEXT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, traduction VARCHAR(255) DEFAULT NULL, logo VARCHAR(255) DEFAULT NULL, imageaccueil VARCHAR(255) DEFAULT NULL, url VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE message (id INT AUTO_INCREMENT NOT NULL, thread_id INT DEFAULT NULL, sender_id INT DEFAULT NULL, body LONGTEXT NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_B6BD307FE2904019 (thread_id), INDEX IDX_B6BD307FF624B39D (sender_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE message_metadata (id INT AUTO_INCREMENT NOT NULL, message_id INT DEFAULT NULL, participant_id INT DEFAULT NULL, is_read TINYINT(1) NOT NULL, INDEX IDX_4632F005537A1329 (message_id), INDEX IDX_4632F0059D1C3019 (participant_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -107,8 +107,8 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('ALTER TABLE geo_department_translation ADD CONSTRAINT FK_95DC05742C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES geo_department (id)');
         $this->addSql('ALTER TABLE listing ADD CONSTRAINT FK_CB0048D464D218E FOREIGN KEY (location_id) REFERENCES listing_location (id)');
         $this->addSql('ALTER TABLE listing ADD CONSTRAINT FK_CB0048D4A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE listing_mariage ADD CONSTRAINT FK_30D6976DD4619D1A FOREIGN KEY (listing_id) REFERENCES listing (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE listing_mariage ADD CONSTRAINT FK_30D6976D192813B FOREIGN KEY (mariage_id) REFERENCES mariage (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE participations ADD CONSTRAINT FK_FDC6C6E8D4619D1A FOREIGN KEY (listing_id) REFERENCES listing (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE participations ADD CONSTRAINT FK_FDC6C6E8192813B FOREIGN KEY (mariage_id) REFERENCES mariage (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE listing_listing_category ADD CONSTRAINT FK_1AFD54EAD4619D1A FOREIGN KEY (listing_id) REFERENCES listing (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE listing_listing_category ADD CONSTRAINT FK_1AFD54EA455844B0 FOREIGN KEY (listing_category_id) REFERENCES listing_category (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE listing_category ADD CONSTRAINT FK_E0307BBB727ACA70 FOREIGN KEY (parent_id) REFERENCES listing_category (id)');
@@ -180,7 +180,7 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('ALTER TABLE geo_department DROP FOREIGN KEY FK_B46066043A405C9');
         $this->addSql('ALTER TABLE user_group DROP FOREIGN KEY FK_8F02BF9DFE54D947');
         $this->addSql('ALTER TABLE booking DROP FOREIGN KEY FK_E00CEDDED4619D1A');
-        $this->addSql('ALTER TABLE listing_mariage DROP FOREIGN KEY FK_30D6976DD4619D1A');
+        $this->addSql('ALTER TABLE participations DROP FOREIGN KEY FK_FDC6C6E8D4619D1A');
         $this->addSql('ALTER TABLE listing_listing_category DROP FOREIGN KEY FK_1AFD54EAD4619D1A');
         $this->addSql('ALTER TABLE listing_discount DROP FOREIGN KEY FK_79CD674D4619D1A');
         $this->addSql('ALTER TABLE listing_image DROP FOREIGN KEY FK_33D3DCD3D4619D1A');
@@ -200,7 +200,7 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('ALTER TABLE listing_characteristic_value_translation DROP FOREIGN KEY FK_8BC9A0F42C2AC5D3');
         $this->addSql('ALTER TABLE listing_listing_characteristic DROP FOREIGN KEY FK_2FD5B3B6E3052CD3');
         $this->addSql('ALTER TABLE listing DROP FOREIGN KEY FK_CB0048D464D218E');
-        $this->addSql('ALTER TABLE listing_mariage DROP FOREIGN KEY FK_30D6976D192813B');
+        $this->addSql('ALTER TABLE participations DROP FOREIGN KEY FK_FDC6C6E8192813B');
         $this->addSql('ALTER TABLE message_metadata DROP FOREIGN KEY FK_4632F005537A1329');
         $this->addSql('ALTER TABLE message DROP FOREIGN KEY FK_B6BD307FE2904019');
         $this->addSql('ALTER TABLE message_thread_metadata DROP FOREIGN KEY FK_38FC293EE2904019');
@@ -244,7 +244,7 @@ final class Version20210203082513 extends AbstractMigration
         $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE lexik_currency');
         $this->addSql('DROP TABLE listing');
-        $this->addSql('DROP TABLE listing_mariage');
+        $this->addSql('DROP TABLE participations');
         $this->addSql('DROP TABLE listing_listing_category');
         $this->addSql('DROP TABLE listing_category');
         $this->addSql('DROP TABLE listing_category_translation');

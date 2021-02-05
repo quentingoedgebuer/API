@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\ListingListingCategory;
 use App\Entity\ListingCategoryTranslation;
 use App\Entity\Listing;
+use App\Entity\ListingLocation;
 use App\Entity\User;
 
 use App\Repository\ListingListingCategoryRepository;
@@ -57,6 +58,25 @@ class APIController extends AbstractController
 
         return new JsonResponse($ListingCategoryTranslation);
      }
+     
+    /**
+     * @Route("/api/custom/getListingLocationRecherche/", name="getListingLocationRecherche")
+     */
+     public function getListingLocationRecherche(Request $request)
+     {
+        $listingLocations= [];
+
+        $search = $request->query->get('search');
+
+        if(!empty($search)){
+            $listingLocations = $this->getDoctrine()
+                ->getRepository(ListingLocation::class)
+                ->findAllBySearch($search);
+        }
+
+        return new JsonResponse($listingLocations);
+     }
+
 
       /**
      * @Route("/api/custom/getLesUsers/", name="getLesUsers")
@@ -114,4 +134,20 @@ class APIController extends AbstractController
        
        return new JsonResponse($users);
     }
+
+     /**
+     * @Route("/api/custom/getLesListing/", name="getLesListing")
+     */
+    public function getLesListing(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAllListing();
+       
+       return new JsonResponse($users);
+    }
+
+    
 }

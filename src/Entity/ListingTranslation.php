@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,6 +18,9 @@ class ListingTranslation
     /**
      * @var int
      *
+     * @Groups("listing")
+     * @Groups("mariage")
+     * @Groups("listingCategory")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -24,6 +30,9 @@ class ListingTranslation
     /**
      * @var string
      *
+     * @Groups("listing")
+     * @Groups("mariage")
+     * @Groups("listingCategory")
      * @ORM\Column(name="title", type="string", length=50, nullable=false)
      */
     private $title;
@@ -31,7 +40,7 @@ class ListingTranslation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
 
@@ -45,6 +54,7 @@ class ListingTranslation
     /**
      * @var string|null
      *
+     * @Groups("listing")
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
     private $slug;
@@ -52,17 +62,12 @@ class ListingTranslation
     /**
      * @var string
      *
-     * @ORM\Column(name="locale", type="string", length=255, nullable=false)
+     * @ORM\Column(name="locale", type="string", length=255, nullable=true)
      */
     private $locale;
 
     /**
-     * @var \Listing
-     *
-     * @ORM\ManyToOne(targetEntity="Listing")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="translatable_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=Listing::class, inversedBy="translation")
      */
     private $translatable;
 

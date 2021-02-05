@@ -13,6 +13,9 @@ class ListingRepository extends ServiceEntityRepository
         parent::__construct($registry, Listing::class);
 	}
 
+	/**
+	* Moteur de recherche du site WeddingYourself
+	*/
 	public function findAllBySearch(String $search, String $location) : array
 	{
 		$listMotCle = explode(" ", $search);
@@ -22,28 +25,42 @@ class ListingRepository extends ServiceEntityRepository
 
 		$sqlMotCle = "";
 		foreach ($listMotCle as $m) {
-			$sqlMotCle .= "AND (u.company_name LIKE '%".$m."%'
+			$sqlMotCle .= "AND (lt.title LIKE '%".$m."%'
 			OR u.profession LIKE '%".$m."%'
 			OR lct.name LIKE '%".$m."%')";
 		}
 
 		$sqlLocation = "";
 		foreach ($listLocation as $l) {
-			$sqlLocation = "AND (ua.city LIKE '%".$l."%')";
+			$sqlLocation = "AND (ll.city LIKE '%".$l."%')";
 		}
 		
-		$sqlSearch = "SELECT l.price, l.certified, u.company_name, u.profession, ua.city, lct.name AS category,
+		$sqlSearch = "SELECT l.price, l.certified, lt.title, ll.city, lct.name AS category, u.last_name AS user_name,
 		(SELECT name FROM user_image WHERE user_id = u.id LIMIT 1) AS user_image,
 		(SELECT name FROM listing_image WHERE listing_id = l.id LIMIT 1) AS listing_image
-		FROM listing l, user u, user_address ua, listing_listing_category llc, listing_category lc, listing_category_translation lct
+		FROM listing l, user u, listing_location ll, listing_listing_category llc, listing_category lc, listing_category_translation lct, listing_translation lt
 		WHERE l.user_id = u.id
-		AND ua.user_id = u.id
+		AND ll.id = l.location_id
 		AND llc.listing_id = l.id
 		AND llc.listing_category_id = lc.id
-		AND lct.translatable_id = lc.id "
+		AND lct.translatable_id = lc.id
+		AND lt.translatable_id = l.id "
 		.$sqlMotCle ." 
-		".$sqlLocation;
+		".$sqlLocation.
+		"GROUP BY lt.title";
 
+        $stmt = $conn->prepare($sqlSearch);
+		$stmt->execute();
+
+        return $stmt->fetchAll();
+	}
+
+	public function findAllListing() : array
+	{
+		$conn = $this->getEntityManager()->getConnection();
+		
+		$sqlSearch = "SELECT id, listingCategory FROM listing";
+		
         $stmt = $conn->prepare($sqlSearch);
 		$stmt->execute();
 

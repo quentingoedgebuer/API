@@ -2,19 +2,27 @@
 
 namespace App\Entity;
 
+use App\Repository\ListingLocationRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ListingLocation
  *
  * @ORM\Table(name="listing_location", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_B8E2EBB1D4619D1A", columns={"listing_id"})}, indexes={@ORM\Index(name="IDX_B8E2EBB198BBE953", columns={"coordinate_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ListingLocationRepository::class)
  */
 class ListingLocation
 {
     /**
      * @var int
      *
+     * @Groups("mariage")
+     * @Groups("listing")
+     * @Groups("listingCategory")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -24,6 +32,7 @@ class ListingLocation
     /**
      * @var string
      *
+     * @Groups("listing")
      * @ORM\Column(name="country", type="string", length=3, nullable=false)
      */
     private $country;
@@ -31,6 +40,9 @@ class ListingLocation
     /**
      * @var string
      *
+     * @Groups("mariage")
+     * @Groups("listing")
+     * @Groups("listingCategory")
      * @ORM\Column(name="city", type="string", length=75, nullable=false)
      */
     private $city;
@@ -38,6 +50,7 @@ class ListingLocation
     /**
      * @var string|null
      *
+     * @Groups("listing")
      * @ORM\Column(name="zip", type="string", length=20, nullable=true)
      */
     private $zip;
@@ -45,6 +58,7 @@ class ListingLocation
     /**
      * @var string|null
      *
+     * @Groups("listing")
      * @ORM\Column(name="route", type="string", length=120, nullable=true)
      */
     private $route;
@@ -52,6 +66,7 @@ class ListingLocation
     /**
      * @var string|null
      *
+     * @Groups("listing")
      * @ORM\Column(name="street_number", type="string", length=20, nullable=true)
      */
     private $streetNumber;
