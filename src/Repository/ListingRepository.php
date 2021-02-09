@@ -35,7 +35,7 @@ class ListingRepository extends ServiceEntityRepository
 			$sqlLocation = "AND (ll.city LIKE '%".$l."%')";
 		}
 		
-		$sqlSearch = "SELECT l.price, l.certified, lt.title, ll.city, lct.name AS category, u.last_name AS user_name,
+		$sqlSearch = "SELECT l.price, l.certified, lt.title, lt.slug, ll.city, lct.name AS category, u.last_name AS user_name,
 		(SELECT name FROM user_image WHERE user_id = u.id LIMIT 1) AS user_image,
 		(SELECT name FROM listing_image WHERE listing_id = l.id LIMIT 1) AS listing_image
 		FROM listing l, user u, listing_location ll, listing_listing_category llc, listing_category lc, listing_category_translation lct, listing_translation lt

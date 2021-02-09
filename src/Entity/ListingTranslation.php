@@ -54,6 +54,8 @@ class ListingTranslation
     /**
      * @var string|null
      *
+     * @Groups("mariage")
+     * @Groups("listingCategory")
      * @Groups("listing")
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */

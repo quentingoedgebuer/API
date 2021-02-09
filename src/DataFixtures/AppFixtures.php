@@ -106,7 +106,11 @@ class AppFixtures extends Fixture
             $this->manager->persist($listingLocation);
 
             $listingTranslation = new listingTranslation();
-            $listingTranslation->setTitle($this->faker->company());
+            $title = $this->faker->company();
+            $listingTranslation->setTitle($title);
+            $slug = str_replace(" ", "-", strtolower($title));
+            $slug = str_replace(".", "", $slug);
+            $listingTranslation->setSlug($slug);
             $listing->addTranslation($listingTranslation);
             $this->manager->persist($listingTranslation);
 
@@ -126,12 +130,12 @@ class AppFixtures extends Fixture
     public function loadMariage()
     {   
         $mariage = new Mariage();
-        $mariage->setNom('Mariage à la carte');
+        $mariage->setNom('Mariage');
         $mariage->setUrl('mariage-a-la-carte');
         $mariage->setTexte('Si vous souhaitez organiser un mariage à votre image, nous vous proposons une liste de prestataires qui vous permettront de bien vous préparer à cet événement.');
         $mariage->setImageaccueil("ImageAccueil5ed62ef34a9aa.png");
         $mariage->setImage('Type-Mariage5ea3f4eda814f.png');
-        $mariage->setTraduction('dd');
+        $mariage->setTraduction('à la carte');
         $this->addReference("mariage-1", $mariage);
         $this->manager->persist($mariage);
 
@@ -155,16 +159,6 @@ class AppFixtures extends Fixture
         $this->addReference("mariage-3", $mariage);
         $this->manager->persist($mariage);
         
-        $mariage = new Mariage();
-        $mariage->setNom('Mariage pour tous');
-        $mariage->setUrl('mariage-lgbt');
-        $mariage->setTexte('Si vous souhaitez organisez un mariage entre personnes de même sexe, nous vous proposons une liste de prestataires qui vous permettront de bien vous préparer cet évènement.');
-        $mariage->setImageaccueil("ImageAccueil5ec2968b1c195.png");
-        $mariage->setImage('Type-Mariage5ea3f53e2d58b.png');
-        $mariage->setTraduction('Hello, quelqu\'un peut s\'en occuper');
-        $this->addReference("mariage-4", $mariage);
-        $this->manager->persist($mariage);
-
         $mariage = new Mariage();
         $mariage->setNom('Mariage turc');
         $mariage->setUrl('mariage-turc');
@@ -196,12 +190,24 @@ class AppFixtures extends Fixture
         $this->manager->persist($mariage);
 
         $mariage = new Mariage();
+        $mariage->setNom('Mariage pour tous');
+        $mariage->setUrl('mariage-lgbt');
+        $mariage->setTexte('Si vous souhaitez organisez un mariage entre personnes de même sexe, nous vous proposons une liste de prestataires qui vous permettront de bien vous préparer cet évènement.');
+        $mariage->setImageaccueil("ImageAccueil5ec2968b1c195.png");
+        $mariage->setImage('Type-Mariage5ea3f53e2d58b.png');
+        //$mariage->setTraduction('Hello, quelqu\'un peut s\'en occuper');
+        $mariage->setLogo("Logo5eaea3642860e.png");
+        $this->addReference("mariage-4", $mariage);
+        $this->manager->persist($mariage);
+        
+        $mariage = new Mariage();
         $mariage->setNom('Mariage végan');
         $mariage->setUrl('mariage-vegan');
         $mariage->setTexte('Si vous souhaitez organisez un mariage 100% végan et écolo, nous vous proposons une liste de prestataires qui vous permettront de bien vous préparer cet événement.');
         $mariage->setImageaccueil("ImageAccueil5ed634f606cf8.png");
         $mariage->setImage('Type-Mariage5ea3f593f348f.png');
-        $mariage->setTraduction('d');
+        //$mariage->setTraduction('d');
+        $mariage->setLogo("Logo5eafd2ca0f24a.jpeg");
         $this->addReference("mariage-8", $mariage);
         $this->manager->persist($mariage);
     }
