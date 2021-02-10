@@ -111,6 +111,7 @@ class AppFixtures extends Fixture
             $slug = str_replace(" ", "-", strtolower($title));
             $slug = str_replace(".", "", $slug);
             $listingTranslation->setSlug($slug);
+            $listingTranslation->setDescription($this->faker->text(200));
             $listing->addTranslation($listingTranslation);
             $this->manager->persist($listingTranslation);
 

@@ -23,6 +23,7 @@ class ListingLocation
      * @Groups("mariage")
      * @Groups("listing")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -33,6 +34,7 @@ class ListingLocation
      * @var string
      *
      * @Groups("listing")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="country", type="string", length=3, nullable=false)
      */
     private $country;
@@ -43,6 +45,7 @@ class ListingLocation
      * @Groups("mariage")
      * @Groups("listing")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="city", type="string", length=75, nullable=false)
      */
     private $city;
@@ -51,6 +54,7 @@ class ListingLocation
      * @var string|null
      *
      * @Groups("listing")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="zip", type="string", length=20, nullable=true)
      */
     private $zip;
@@ -59,6 +63,7 @@ class ListingLocation
      * @var string|null
      *
      * @Groups("listing")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="route", type="string", length=120, nullable=true)
      */
     private $route;
@@ -67,6 +72,7 @@ class ListingLocation
      * @var string|null
      *
      * @Groups("listing")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="street_number", type="string", length=20, nullable=true)
      */
     private $streetNumber;

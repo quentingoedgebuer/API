@@ -107,19 +107,36 @@ class APIController extends AbstractController
        return new JsonResponse($users);
     }
 
-    /**
-     * @Route("/api/custom/getLesUsersLastMonth/", name="getLesUsersLastMonth")
+     /**
+     * @Route("/api/custom/getLesListing/", name="getLesListing")
      */
-    public function getLesUsersLastMonth(Request $request): Response
+    public function getLesListing(Request $request): Response
     {
         $users = [];
 
         $users = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findInscriptionLastMonth();
+            ->findAllListing();
        
        return new JsonResponse($users);
     }
+
+//######################## - Derniers inscrits - ######################## 
+    
+    /**
+     * @Route("/api/custom/getLesUsersLastDay/", name="getLesUsersLastDay")
+     */
+    public function getLesUsersLastDay(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findInscriptionLastDay();
+       
+       return new JsonResponse($users);
+    }
+
 
      /**
      * @Route("/api/custom/getLesUsersLastWeek/", name="getLesUsersLastWeek")
@@ -135,19 +152,35 @@ class APIController extends AbstractController
        return new JsonResponse($users);
     }
 
-     /**
-     * @Route("/api/custom/getLesListing/", name="getLesListing")
+    /**
+     * @Route("/api/custom/getLesUsersLastMonth/", name="getLesUsersLastMonth")
      */
-    public function getLesListing(Request $request): Response
+    public function getLesUsersLastMonth(Request $request): Response
     {
         $users = [];
 
         $users = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findAllListing();
+            ->findInscriptionLastMonth();
        
        return new JsonResponse($users);
     }
+
+    /**
+     * @Route("/api/custom/getLesUsersLastYear/", name="getLesUsersLastYear")
+     */
+    public function getLesUsersLastYear(Request $request): Response
+    {
+        $users = [];
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findInscriptionLastYear();
+       
+       return new JsonResponse($users);
+    }
+
+
 
     
 }

@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ListingTranslation
  *
+ * @ApiResource(normalizationContext={"groups"={"listingTranslation"}})
+ * @ApiFilter(SearchFilter::class, properties={"slug":"exact"})
  * @ORM\Table(name="listing_translation", uniqueConstraints={@ORM\UniqueConstraint(name="listing_translation_unique_translation", columns={"translatable_id", "locale"})}, indexes={@ORM\Index(name="slug_idx", columns={"slug"}), @ORM\Index(name="IDX_E3779C3D2C2AC5D3", columns={"translatable_id"})})
  * @ORM\Entity
  */
@@ -18,6 +21,7 @@ class ListingTranslation
     /**
      * @var int
      *
+     * @Groups({"listingTranslation"})
      * @Groups("listing")
      * @Groups("mariage")
      * @Groups("listingCategory")
@@ -30,6 +34,7 @@ class ListingTranslation
     /**
      * @var string
      *
+     * @Groups({"listingTranslation"})
      * @Groups("listing")
      * @Groups("mariage")
      * @Groups("listingCategory")
@@ -40,6 +45,7 @@ class ListingTranslation
     /**
      * @var string
      *
+     * @Groups({"listingTranslation"})
      * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
@@ -54,6 +60,7 @@ class ListingTranslation
     /**
      * @var string|null
      *
+     * @Groups({"listingTranslation"})
      * @Groups("mariage")
      * @Groups("listingCategory")
      * @Groups("listing")
@@ -69,6 +76,7 @@ class ListingTranslation
     private $locale;
 
     /**
+     * @Groups({"listingTranslation"})
      * @ORM\ManyToOne(targetEntity=Listing::class, inversedBy="translation")
      */
     private $translatable;

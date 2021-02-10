@@ -27,6 +27,7 @@ class Mariage
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @Groups({"mariage"})
+     * @Groups("listingTranslation")
      * @Groups("lesListing")
      */
     private $id;
@@ -36,6 +37,7 @@ class Mariage
      *
      * @ORM\Column(name="nom", type="string", length=40, nullable=false)
      * @Groups({"mariage"})
+     * @Groups("listingTranslation")
      * @Groups("lesListing")
      */
     private $nom;

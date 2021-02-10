@@ -23,7 +23,7 @@ class UserImage
      * @Groups("listing")
      * @Groups("mariage")
      * @Groups("utilisateur")
-     * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -37,6 +37,7 @@ class UserImage
      * @Groups("mariage")
      * @Groups("utilisateur")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -44,8 +45,6 @@ class UserImage
     /**
      * @var int
      *
-     * @Groups("listing")
-     * @Groups("mariage")
      * @ORM\Column(name="position", type="smallint", nullable=true)
      */
     private $position;

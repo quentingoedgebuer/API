@@ -38,6 +38,7 @@ class ListingCategory
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      * @Groups({"listingCategory"})
      * @Groups("listing")
+     * @Groups("listingTranslation")
      */
     private $url;
 
@@ -143,6 +144,7 @@ class ListingCategory
      * @Groups({"listingCategory"})
      * @Groups("listing")
      * @Groups("mariage")
+     * @Groups("listingTranslation")
      */
     private $listingCategoryTranslations;
 

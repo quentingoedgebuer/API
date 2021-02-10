@@ -38,11 +38,26 @@ class UserRepository extends ServiceEntityRepository
 	}
 
 
-	public function findInscriptionLastMonth() : array
+//######################## - Derniers inscrits - ######################## 
+
+	/*public function findInscriptionLastHour() : array
 	{
 		$conn = $this->getEntityManager()->getConnection();
 		
-		$sqlSearch = "SELECT Count(id) FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL -30 DAY)";
+		$sqlSearch = "SELECT Count(id) FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL - 1 DAY)";
+		
+
+		$stmt = $conn->prepare($sqlSearch);
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+	}*/
+
+	public function findInscriptionLastDay() : array
+	{
+		$conn = $this->getEntityManager()->getConnection();
+		
+		$sqlSearch = "SELECT id,username,createdat  FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL -7 DAY)";
 		
 
         $stmt = $conn->prepare($sqlSearch);
@@ -55,7 +70,7 @@ class UserRepository extends ServiceEntityRepository
 	{
 		$conn = $this->getEntityManager()->getConnection();
 		
-		$sqlSearch = "SELECT Count(id) FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL -7 DAY)";
+		$sqlSearch = "SELECT id,username,createdat FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL -30 DAY)";
 		
 
         $stmt = $conn->prepare($sqlSearch);
@@ -64,4 +79,29 @@ class UserRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
 	}
 
+	public function findInscriptionLastMonth() : array
+	{
+		$conn = $this->getEntityManager()->getConnection();
+		
+		$sqlSearch = "SELECT id,username,createdat  FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL -1 YEAR)";
+		
+
+        $stmt = $conn->prepare($sqlSearch);
+		$stmt->execute();
+
+        return $stmt->fetchAll();
+	}
+
+	public function findInscriptionLastYear() : array
+	{
+		$conn = $this->getEntityManager()->getConnection();
+		
+		$sqlSearch = "SELECT id,username,createdat  FROM user WHERE createdat >= DATE_ADD(NOW(),INTERVAL - 5 YEAR)";
+		
+
+        $stmt = $conn->prepare($sqlSearch);
+		$stmt->execute();
+
+        return $stmt->fetchAll();
+	}
 }

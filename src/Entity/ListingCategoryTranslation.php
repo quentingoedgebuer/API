@@ -33,6 +33,7 @@ class ListingCategoryTranslation
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      * @Groups("listingCategory")
      * @Groups("listing")
+     * @Groups("listingTranslation")
      * @Groups("mariage")
      */
     private $name;
@@ -43,6 +44,7 @@ class ListingCategoryTranslation
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      * @Groups("listingCategory")
      * @Groups("listing")
+     * @Groups("listingTranslation")
      */
     private $slug;
 

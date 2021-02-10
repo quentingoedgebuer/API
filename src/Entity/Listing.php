@@ -28,6 +28,7 @@ class Listing
      * @Groups({"listing"})
      * @Groups("utilisateur")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -37,7 +38,6 @@ class Listing
     /**
      * @var int
      *
-     * @Groups("mariage")
      * @ORM\Column(name="status", type="smallint", nullable=true)
      */
     private $status;
@@ -49,6 +49,7 @@ class Listing
      * @Groups("listingCategory")
      * @Groups({"listing"})
      * @Groups("utilisateur")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="type", type="smallint", nullable=true)
      */
     private $type;
@@ -60,6 +61,7 @@ class Listing
      * @Groups("listingCategory")
      * @Groups({"listing"})
      * @Groups("utilisateur")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="price", type="decimal", precision=8, scale=0, nullable=false)
      */
     private $price;
@@ -71,6 +73,7 @@ class Listing
      * @Groups("listingCategory")
      * @Groups("utilisateur")
      * @Groups({"listing"})
+     * @Groups("listingTranslation")
      * @ORM\Column(name="certified", type="boolean", nullable=false)
      */
     private $certified;
@@ -128,6 +131,7 @@ class Listing
      * @var \DateTime|null
      *
      * @Groups({"listing"})
+     * @Groups("listingTranslation")
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
      */
     private $createdat;
@@ -136,6 +140,7 @@ class Listing
      * @var \DateTime|null
      *
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @Groups({"listing"})
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
@@ -147,6 +152,7 @@ class Listing
      * @Groups({"listing"})
      * @Groups("mariage")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\ManyToOne(targetEntity="ListingLocation")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="location_id", referencedColumnName="id")
@@ -160,6 +166,7 @@ class Listing
      * @Groups({"listing"})
      * @Groups("listingCategory")
      * @Groups("mariage")
+     * @Groups("listingTranslation")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -172,12 +179,15 @@ class Listing
      * @Groups("utilisateur")
      * @Groups("listingCategory")
      * @Groups("mariage")
+     * @Groups("listingTranslation")
      * @ORM\OneToMany(targetEntity=ListingImage::class, mappedBy="listing")
      */
     private $ListingImage;
     
     /**
      * @Groups({"listing"})
+     * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @ORM\JoinTable(name="participations")
      * @ORM\ManyToMany(targetEntity=Mariage::class, inversedBy="listings")
      */
@@ -186,6 +196,7 @@ class Listing
     /**
      * @Groups({"listing"})
      * @Groups("mariage")
+     * @Groups("listingTranslation")
      * @ORM\ManyToMany(targetEntity=ListingCategory::class, inversedBy="listings")
      */
     private $ListingCategory;

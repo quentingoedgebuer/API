@@ -28,6 +28,7 @@ class User
      * @ORM\Id
      * @Groups("listing")
      * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @Groups({"utilisateur"})
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -54,7 +55,7 @@ class User
     /**
      * @var string
      *
-     * @Groups("listing")
+     * @Groups("listingTranslation")
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
@@ -115,6 +116,7 @@ class User
      * @var \DateTime|null
      *
      *
+     * @Groups("listingTranslation")
      * @Groups({"utilisateur"})
      * @ORM\Column(name="expires_at", type="datetime", nullable=true)
      */
@@ -138,6 +140,7 @@ class User
      * @var array
      *
      * @Groups("listing")
+     * @Groups("listingTranslation")
      *
      * @ORM\Column(name="roles", type="array", length=0, nullable=false)
      */
@@ -168,6 +171,7 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      * @Groups({"utilisateur"})
      *
@@ -178,6 +182,7 @@ class User
     /**
      * @var string
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
@@ -187,6 +192,7 @@ class User
     /**
      * @var string
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
@@ -204,6 +210,7 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      *
      * @ORM\Column(name="phone", type="string", length=16, nullable=true)
@@ -221,6 +228,7 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      * @Groups({"utilisateur"})
      *
@@ -231,8 +239,6 @@ class User
     /**
      * @var string|null
      *
-     * @Groups("listing")
-     *
      * @ORM\Column(name="country_of_residence", type="string", length=3, nullable=true)
      */
     private $countryOfResidence;
@@ -240,6 +246,7 @@ class User
     /**
      * @var string|null
      *
+     * @Groups("listingTranslation")
      * @Groups("listing")
      * @Groups({"utilisateur"})
      *
@@ -416,7 +423,6 @@ class User
     private $group;
 
     /**
-     * @Groups("listing")
      * @Groups({"utilisateur"})
      * @ORM\OneToMany(targetEntity=UserAddress::class, mappedBy="user")
      *
@@ -424,9 +430,10 @@ class User
     private $addresses;
 
     /**
+     * @Groups("listingCategory")
      * @Groups("listing")
      * @Groups("mariage")
-     * @Groups("listingCategory")
+     * @Groups("listingTranslation")
      * @Groups({"utilisateur"})
      * @ORM\OneToMany(targetEntity=UserImage::class, mappedBy="user")
      */
