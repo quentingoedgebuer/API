@@ -184,6 +184,7 @@ class User
      *
      * @Groups("listingTranslation")
      * @Groups("listing")
+     * @Groups("listingTranslation")
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
      */
@@ -194,6 +195,7 @@ class User
      *
      * @Groups("listingTranslation")
      * @Groups("listing")
+     * @Groups("listingTranslation")
      *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
      */

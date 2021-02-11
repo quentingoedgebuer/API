@@ -93,11 +93,13 @@ class AppFixtures extends Fixture
             $user->addListing($listing);
             $this->manager->persist($listing);
 
-            $listingImage = new ListingImage();
-            $listingImage->setName("ImageAccueil5ec296248a5a7.png");
-            $listingImage->setPosition(0);
-            $listing->addListingImage($listingImage);
-            $this->manager->persist($listingImage);
+            for($i2 = 0; $i2 < 2; $i2++){
+                $listingImage = new ListingImage();
+                $listingImage->setName("ImageAccueil5ec296248a5a7.png");
+                $listingImage->setPosition(0);
+                $listing->addListingImage($listingImage);
+                $this->manager->persist($listingImage);
+            }
 
             $listingLocation = new ListingLocation();
             $listingLocation->setCountry("FR");

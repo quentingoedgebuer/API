@@ -24,21 +24,18 @@ class Article
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("categorie")
      * @Groups({"Article"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("categorie")
      * @Groups({"Article"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("categorie")
      * @Groups({"Article"})
      */
     private $contenu;

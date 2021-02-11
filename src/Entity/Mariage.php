@@ -92,6 +92,7 @@ class Mariage
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      * @Groups({"mariage"})
+     * @Groups("listingTranslation")
      */
     private $url;
 

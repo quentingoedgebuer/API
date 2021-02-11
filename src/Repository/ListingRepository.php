@@ -27,7 +27,8 @@ class ListingRepository extends ServiceEntityRepository
 		foreach ($listMotCle as $m) {
 			$sqlMotCle .= "AND (lt.title LIKE '%".$m."%'
 			OR u.profession LIKE '%".$m."%'
-			OR lct.name LIKE '%".$m."%')";
+			OR lct.name LIKE '%".$m."%'
+			OR lt.description LIKE '%".$m."%')";
 		}
 
 		$sqlLocation = "";
